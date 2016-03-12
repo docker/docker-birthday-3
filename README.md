@@ -40,9 +40,9 @@ At the training, you will need to bring your own computer. Before you go to a bi
 1. To run the application and participate in the rest of the training, pre-pull these images
 
    ```bash
-   docker pull node:0.10
+   docker pull ocelotuproar/alpine-node:5.7.1
    docker pull python:2.7-alpine
-   docker pull java:7
+   docker pull ocelotuproar/alpine-java:7
    docker pull redis:alpine
    docker pull postgres:9.4
    ```

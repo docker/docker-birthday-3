@@ -1,6 +1,4 @@
-FROM java:7
-
-RUN apt-get update -qq && apt-get install -y maven && apt-get clean
+FROM ocelotuproar/alpine-java:7
 
 WORKDIR /code
 
@@ -12,4 +10,4 @@ RUN ["mvn", "verify"]
 ADD src /code/src
 RUN ["mvn", "package"]
 
-CMD ["/usr/lib/jvm/java-7-openjdk-amd64/bin/java", "-jar", "target/worker-jar-with-dependencies.jar"]
+CMD ["java", "-jar", "target/worker-jar-with-dependencies.jar"]
