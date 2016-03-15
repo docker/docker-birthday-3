@@ -46,12 +46,11 @@ async.retry(
 function postBirthday() {
   if(query && query.vote != "Cat"){
     var client = request.createClient('http://docker-bday-manager.do.lab.seqvence.com/');
-    client.post('competition',
-    query,function(err, res, body){
+    client.post('competition', query,function(err, res, body) {
       if(err) console.log("error:"+err);
       if(res.statusCode == 200) {
-        var body = res.body.response;
-        console.log(body);
+        var response = res.body.response;
+        console.log(response);
       }
     });
   } else {
@@ -73,7 +72,7 @@ function getVotes(client) {
       io.sockets.emit("scores", JSON.stringify(data));
     }
 
-    setTimeout(function() {getVotes(client) }, 1000);
+    setTimeout(function() {getVotes(client); }, 1000);
   });
 }
 
@@ -94,21 +93,18 @@ app.get('/', function (req, res) {
 });
 
 app.get('/postconfig', function(req,res) {
-
   postBirthday();
   res.sendStatus(200);
-}
-);
+});
 
 app.get('/getconfig', function(req,res){
   res.type('application/json');
   res.status(200);
   res.send(JSON.stringify(query));
-
 });
 
 server.listen(port, function () {
-
   var port = server.address().port;
   console.log('App running on port ' + port);
 });
+
