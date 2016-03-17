@@ -195,7 +195,7 @@ $ docker-machine ip default
 You can now open [http://192.168.99.100:32772](http://192.168.99.100:32772) to see your site live! You can also specify a custom port to which the client will forward connections to the container.
 
 ```
-$ docker run --name static-site -e -e=Your_Name -d -p 8888:80 seqvence/static-site
+$ docker run --name static-site -e AUTHOR=Your_Name -d -p 8888:80 seqvence/static-site
 ```
 <img src="https://raw.githubusercontent.com/docker/Docker-Birthday-3/master/tutorial-images/static.png" title="static">
 
