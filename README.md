@@ -1,10 +1,16 @@
 
 # Docker Birthday #3
 
+### [Introduction to Docker and Docker Birthday #3 Slides](https://docs.google.com/a/docker.com/presentation/d/1MKQ8KTxeuSYPHp7LjuOy9k8FgzAApH9i-6A1micJa1A/edit?usp=drive_web)
+
+### Video series on setting up Docker on your machine: [Mac](https://www.youtube.com/watch?v=lNkVxDSRo7M), [Windows](https://youtu.be/S7NVloq0EBc) and [Linux](https://www.youtube.com/watch?v=V9AKvZZCWLc)
+
 ### Training materials:
 
 
 This year, to celebrate the Docker Project’s 3rd birthday, the Docker community is joining forces with a number of partners in the broader tech and open-source community to host a series of events focused on providing Docker training to beginners during the week of March 21-26.
+
+**This document prepares you for the birthday party training before you actually attend. If you are already at the training, please go over to the [Tutorial](https://github.com/docker/docker-birthday-3/blob/master/tutorial.md)**
 
 Based on the feedback we’ve received from Docker meetup organizers, we learned that many meetup attendees are new to Docker and we want to make sure that we welcome them warmly into the Docker community. To ensure that these events are inclusive for everyone attending including underrepresented minorities, we’re happy to announce that we have teamed up with the following partners who’re actively contributing to organizing many Docker Birthday celebrations around the world:
 
@@ -14,8 +20,10 @@ Based on the feedback we’ve received from Docker meetup organizers, we learned
 - [GoBridge] (http://golangbridge.org/)
 - [Women Who Go] (http://www.womenwhogo.org/)
 - [Ruby Central] (http://rubycentral.org/)
+- [Women Who Code] (https://www.womenwhocode.com/)
+- [Digital Ocean] (https://www.digitalocean.com/)
 
-Without revealing too many details at this point, participants in the training will go through the steps involved in running and developing a simple voting app from a fresh computer using Docker Toolbox and Compose. This simple app will include:
+Participants in the training will go through the steps involved in running and developing a simple voting app from a fresh computer using the Docker Toolbox. This simple app will include:
 
 ![birthday3-app-architecture](./tutorial-images/bd3-architecture.png)
 
@@ -36,15 +44,15 @@ At the training, you will need to bring your own computer. Before you go to a bi
 
    ```bash
    docker pull hello-world
-   docker pull busybox
+   docker pull alpine
    docker pull seqvence/static-site
 ```
 1. To run the application and participate in the rest of the training, pre-pull these images
 
    ```bash
-   docker pull node:0.10
+   docker pull mhart/alpine-node
    docker pull python:2.7-alpine
-   docker pull java:7
+   docker pull manomarks/worker
    docker pull redis:alpine
    docker pull postgres:9.4
    ```

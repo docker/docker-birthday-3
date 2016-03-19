@@ -45,7 +45,7 @@ async.retry(
 
 function postBirthday() {
   if(query && query.vote != "Cat"){
-    var client = request.createClient('http://docker-bday-manager.do.lab.seqvence.com/');
+    var client = request.createClient('http://dockerize.it/');
     client.post('competition',
     query,function(err, res, body){
       if(err) console.log("error:"+err);
