@@ -590,6 +590,8 @@ To complete the submission, you will need to have Docker and Docker Compose inst
 $ docker login
 ```
 
+> NOTE: On windows, you may need `docker-machine ssh default` command. 
+
 And follow the login directions. Now you can push images to Docker Hub.
 
 
