@@ -241,13 +241,13 @@ $ docker port static-site
 80/tcp -> 0.0.0.0:32773
 ```
 
-If you're on Linux, you can open [http://localhost:32772](http://localhost:32772) in your browser. If you're on Windows or a Mac, you need to find the IP of the hostname.
+If you're on Linux, you can open [http://localhost:32773](http://localhost:32773) in your browser. If you're on Windows or a Mac, you need to find the IP of the hostname.
 
 ```
 $ docker-machine ip default
 192.168.99.100
 ```
-You can now open [http://192.168.99.100:32772](http://192.168.99.100:32772) to see your site live!
+You can now open [http://192.168.99.100:32773](http://192.168.99.100:32773) to see your site live!
 
 You can also run a second webserver at the same time, specifying a custom host port mapping to the container's webserver.
 
@@ -299,7 +299,7 @@ $ docker pull ubuntu:12.04
 
 **NOTE**: Do not execute the above command. It is only for your reference.
 
-If you do not specify the version number of the image, then as mentioned the Docker client with default to a version named `latest`.
+If you do not specify the version number of the image, then as mentioned the Docker client will default to a version named `latest`.
 
 So for example, the `docker pull` command given below will pull an image named `ubuntu:latest`:
 
