@@ -10,6 +10,7 @@ import json
 
 option_a = os.getenv('OPTION_A', "One")
 option_b = os.getenv('OPTION_B', "Two")
+port = os.getenv('PORT', "80")
 
 hostname = socket.gethostname()
 
@@ -45,4 +46,4 @@ def hello():
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=80, debug=True)
+	app.run(host='0.0.0.0', port=port, debug=True)
