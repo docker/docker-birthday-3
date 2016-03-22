@@ -139,6 +139,8 @@ Try another command.
 $ docker run alpine /bin/sh
 ```
 
+> Note: If you are using Windows, please try `docker-machine ssh default` then type these commands. 
+
 Wait, nothing happened! Is that a bug? Well, no. These interactive shells will exit after running any scripted commands, unless they are run in an interactive terminal - so for this example to not exit, you need to `docker run -it alpine /bin/sh`.
 
 You are now inside the container shell and you can try out a few commands like `ls -l`, `uptime` and others. Exit out of the container by giving the `exit` command.
