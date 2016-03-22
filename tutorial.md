@@ -139,6 +139,8 @@ Try another command.
 $ docker run alpine /bin/sh
 ```
 
+> Note: If you are using Windows, please try `docker-machine ssh default` then type these commands. 
+
 Wait, nothing happened! Is that a bug? Well, no. These interactive shells will exit after running any scripted commands, unless they are run in an interactive terminal - so for this example to not exit, you need to `docker run -it alpine /bin/sh`.
 
 You are now inside the container shell and you can try out a few commands like `ls -l`, `uptime` and others. Exit out of the container by giving the `exit` command.
@@ -215,6 +217,8 @@ $ docker ps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES
 a7a0e504ca3e        seqvence/static-site   "/bin/sh -c 'cd /usr/"   28 seconds ago      Up 26 seconds       80/tcp, 443/tcp     stupefied_mahavira
 ```
+
+> Note: When you launch another terminal (command window), you need `eval "$(docker-machine env default)"` command for setting up the new terminal. If you are using Windows, please try `docker-machine env default --shell=cmd` then execute the last line.
 
 Check out the `CONTAINER ID` column. You will need to use this `CONTAINER ID` value, a long sequence of characters and first stop the running container and then remove the running container as given below. The example below provides the `CONTAINER ID` on our system, you should use the value that you see in your terminal.
 ```
@@ -585,6 +589,8 @@ To complete the submission, you will need to have Docker and Docker Compose inst
 ```
 $ docker login
 ```
+
+> NOTE: On windows, you may need `docker-machine ssh default` command. 
 
 And follow the login directions. Now you can push images to Docker Hub.
 
