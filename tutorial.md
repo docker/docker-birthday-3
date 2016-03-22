@@ -218,6 +218,8 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 a7a0e504ca3e        seqvence/static-site   "/bin/sh -c 'cd /usr/"   28 seconds ago      Up 26 seconds       80/tcp, 443/tcp     stupefied_mahavira
 ```
 
+> Note: When you launch another terminal (command window), you need `eval "$(docker-machine env default)"` command for setting up the new terminal. If you are using Windows, please try `docker-machine env default --shell=cmd` then execute the last line.
+
 Check out the `CONTAINER ID` column. You will need to use this `CONTAINER ID` value, a long sequence of characters and first stop the running container and then remove the running container as given below. The example below provides the `CONTAINER ID` on our system, you should use the value that you see in your terminal.
 ```
 $ docker stop a7a0e504ca3e
