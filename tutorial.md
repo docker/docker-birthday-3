@@ -644,6 +644,8 @@ This is what the file looks now like:
 
 Replace it with your data:
 
+**Warning: `name` needs to be 6 or more characters for your submission to succeed.**
+
 ```
 {
   "name":"John Doe",
