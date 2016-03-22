@@ -23,13 +23,13 @@ io.sockets.on('connection', function (socket) {
 });
 
 var query = require('./views/config.json');
-
+var db_host = process.env.DB_HOST || "db";
 async.retry(
   {times: 1000, interval: 1000},
   function(callback) {
-    pg.connect('postgres://postgres@db/postgres', function(err, client, done) {
+    pg.connect('postgres://postgres@' + db_host + '/postgres', function(err, client, done) {
       if (err) {
-        console.error("Failed to connect to db");
+        console.error("Failed to connect to", db_host);
       }
       callback(err, client);
     });
@@ -38,7 +38,7 @@ async.retry(
     if (err) {
       return console.err("Giving up");
     }
-    console.log("Connected to db");
+    console.log("Connected to", db_host);
     getVotes(client);
   }
 );
