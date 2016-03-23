@@ -2,6 +2,6 @@
   "name":"Stefan Scherer",
   "twitter":"@stefscherer",
   "location":"Bamberg, BY, Germany",
-  "repo":["example/examplevotingapp_voting-app","example/examplevotingapp_result-app"],
+  "repo":["stefanscherer/examplevotingapp_voting-app","stefanscherer/examplevotingapp_result-app"],
   "vote":"Docker"
 }
