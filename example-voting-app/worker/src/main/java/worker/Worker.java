@@ -10,11 +10,11 @@ class Worker {
     try {
       String redis_host = System.getenv("REDIS_HOST");
       if (redis_host == null) {
-        redis_host = "redis"
+        redis_host = "redis";
       }
       String db_host = System.getenv("DB_HOST");
       if (db_host == null) {
-        db_host = "db"
+        db_host = "db";
       }
       Jedis redis = connectToRedis(redis_host);
       Connection dbConn = connectToDB(db_host);
@@ -61,12 +61,12 @@ class Worker {
         conn.keys("*");
         break;
       } catch (JedisConnectionException e) {
-        System.err.println("Failed to connect to redis - retrying");
+        System.err.println("Failed to connect to redis " + host + " - retrying");
         sleep(1000);
       }
     }
 
-    System.err.println("Connected to redis");
+    System.err.println("Connected to redis " + host);
     return conn;
   }
 
@@ -82,7 +82,7 @@ class Worker {
         try {
           conn = DriverManager.getConnection(url, "postgres", "");
         } catch (SQLException e) {
-          System.err.println("Failed to connect to db - retrying");
+          System.err.println("Failed to connect to db " + host + " - retrying");
           sleep(1000);
         }
       }

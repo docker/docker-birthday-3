@@ -1,7 +1,7 @@
 {
-  "name":"Gordon",
-  "twitter":"@docker",
-  "location":"San Francisco, CA, USA",
+  "name":"Stefan Scherer",
+  "twitter":"@stefscherer",
+  "location":"Bamberg, BY, Germany",
   "repo":["example/examplevotingapp_voting-app","example/examplevotingapp_result-app"],
-  "vote":"Cat"
+  "vote":"Docker"
 }

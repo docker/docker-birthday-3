@@ -8,8 +8,8 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "One")
-option_b = os.getenv('OPTION_B', "Two")
+option_a = os.getenv('OPTION_A', "PS1")
+option_b = os.getenv('OPTION_B', "Docker")
 port = os.getenv('PORT', "80")
 
 hostname = socket.gethostname()
@@ -46,4 +46,4 @@ def hello():
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=port, debug=True)
+	app.run(host='0.0.0.0', port=int(port), debug=True)
