@@ -2,6 +2,6 @@
   "name":"Gordon",
   "twitter":"@docker",
   "location":"San Francisco, CA, USA",
-  "repo":["example/examplevotingapp_voting-app","example/examplevotingapp_result-app"],
+  "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
   "vote":"Cat"
 }

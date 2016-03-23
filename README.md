@@ -1,16 +1,24 @@
+# Docker Birthday #3 :tada: :birthday: :tada:
 
-# Docker Birthday #3
+> Birthday App Project
 
-### [Introduction to Docker and Docker Birthday #3 Slides](https://docs.google.com/a/docker.com/presentation/d/1MKQ8KTxeuSYPHp7LjuOy9k8FgzAApH9i-6A1micJa1A/edit?usp=drive_web)
+### About the Birthday Party :whale2: :boat:
+- [Introduction to Docker and Docker Birthday #3 Slides](https://docs.google.com/a/docker.com/presentation/d/1MKQ8KTxeuSYPHp7LjuOy9k8FgzAApH9i-6A1micJa1A/edit?usp=drive_web)
+- Video series on setting up Docker on your machine: [Mac](https://www.youtube.com/watch?v=lNkVxDSRo7M), [Windows](https://youtu.be/S7NVloq0EBc) and [Linux](https://www.youtube.com/watch?v=V9AKvZZCWLc)
+- [Training materials](#training-materials)
+- [Pre-tutorial preparation](#pre-tutorial-preparation)
+- [IN-tutorial guidelines](./tutorial.md)
 
-### Video series on setting up Docker on your machine: [Mac](https://www.youtube.com/watch?v=lNkVxDSRo7M), [Windows](https://youtu.be/S7NVloq0EBc) and [Linux](https://www.youtube.com/watch?v=V9AKvZZCWLc)
+<a href="https://www.docker.com/docker-birthday"><img align="right" src="https://www.docker.com/sites/default/files/illustration-com-container-party.png"></a>
+
+
 
 ### Training materials:
 
 
 This year, to celebrate the Docker Project’s 3rd birthday, the Docker community is joining forces with a number of partners in the broader tech and open-source community to host a series of events focused on providing Docker training to beginners during the week of March 21-26.
 
-**This document prepares you for the birthday party training before you actually attend. If you are already at the training, please go over to the [Tutorial](https://github.com/docker/docker-birthday-3/blob/master/tutorial.md)**
+:warning: **This document prepares you for the birthday party training before you actually attend. If you are already at the training, please go over to the [Tutorial](https://github.com/docker/docker-birthday-3/blob/master/tutorial.md)**
 
 Based on the feedback we’ve received from Docker meetup organizers, we learned that many meetup attendees are new to Docker and we want to make sure that we welcome them warmly into the Docker community. To ensure that these events are inclusive for everyone attending including underrepresented minorities, we’re happy to announce that we have teamed up with the following partners who’re actively contributing to organizing many Docker Birthday celebrations around the world:
 
@@ -38,7 +46,10 @@ There will be a self-paced beginners’ tutorial for attendees to learn Docker b
 ### Pre-tutorial preparation
 At the training, you will need to bring your own computer. Before you go to a birthday party training, there are some steps you should do some preparation to get your work environment ready. Here are the steps:
 
-1. For Linux users, we need you to install [Docker engine] (https://docs.docker.com/engine/installation/)
+1. For Linux users, we need you to install [Docker engine] (https://docs.docker.com/engine/installation/) and [Docker compose] (https://docs.docker.com/compose/install/). Make sure you have Docker compose version 1.6 or higher by executing 
+
+   ```docker-compose version```
+
 1. For PC and Mac users we need you to install [Docker toolbox for Mac and Windows](https://www.docker.com/products/docker-toolbox) and use [Docker Machine] (https://docs.docker.com/machine/get-started/) to create a virtual machine to run your Docker containers. Once your machine is created and you have connected your shell to this new machine, you're ready to run Docker commands on this host.  If you're using Linux you can skip to the next step.
 1. If you're new to Docker, pre-pull the docker images for the very basic tutorial
 
@@ -58,4 +69,4 @@ At the training, you will need to bring your own computer. Before you go to a bi
    ```
 And now you're ready. See you at the birthday party!
 
-<a href="https://www.docker.com/docker-birthday"><img align="right" src="https://www.docker.com/sites/default/files/illustration-com-container-party.png"></a>
+

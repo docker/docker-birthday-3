@@ -28,9 +28,9 @@ This document contains a series of several sections, each of which explains a pa
 <a href="#top" class="top" id="table-of-contents">Top</a>
 ## Table of Contents
 
--	[Preface](#preface)
-    -	[Prerequisites](#prerequisites)
-    -	[Setting up your computer](#setup)
+- [Preface](#preface)
+    - [Prerequisites](#prerequisites)
+    - [Setting up your computer](#setup)
 -   [1.0 Playing with Alpine](#alpine)
     -   [1.1 Docker Run](#dockerrun)
     -   [1.2 Terminology](#terminology)
@@ -39,14 +39,14 @@ This document contains a series of several sections, each of which explains a pa
     -   [2.2 Docker Images](#docker-images)
     -   [2.3 Our First Image](#our-image)
     -   [2.4 Dockerfile](#dockerfiles)
--	 [3.0 Birthday training](#dockercompetition)
-	- [3.1 Pull voting-app images](#pullimage)
+-  [3.0 Birthday training](#dockercompetition)
+  - [3.1 Pull voting-app images](#pullimage)
   - [3.2 Customize the App](#customize)
-                - [3.2.1 Modify app.py](#modifyapp)
-		- [3.2.2 Modify config.json](#modifyconfig)
-		- [3.2.3 Building and running the app](#buildvotingapp)
-		- [3.2.4 Build and tag images](#buildandtag)
-		- [3.2.5 Push images to Docker Hub](#pushimages)
+    - [3.2.1 Modify app.py](#modifyapp)
+    - [3.2.2 Modify config.json](#modifyconfig)
+    - [3.2.3 Building and running the app](#buildvotingapp)
+    - [3.2.4 Build and tag images](#buildandtag)
+    - [3.2.5 Push images to Docker Hub](#pushimages)
   - [3.3 Enter competition](#confirmtraining)
   - [3.4 Check your submission status](#checkstatus)
 -  [4.0 Wrap Up](#wrap-up)
@@ -118,7 +118,7 @@ drwxr-xr-x    5 root     root          4096 Mar  2 16:20 lib
 ......
 ......
 ```
-What happened? Behind the scenes, a lot of stuff happened. When you call `run`, the Docker client finds the image (alpine in this case), creates the container and then runs a command in that container. When you run `docker run alpine`, you provided a command (`ls -l`), so Docker started the command specified and you saw the listing. 
+What happened? Behind the scenes, a lot of stuff happened. When you call `run`, the Docker client finds the image (alpine in this case), creates the container and then runs a command in that container. When you run `docker run alpine`, you provided a command (`ls -l`), so Docker started the command specified and you saw the listing.
 
 Let's try something more exciting.
 
@@ -141,7 +141,7 @@ $ docker run alpine /bin/sh
 
 Wait, nothing happened! Is that a bug? Well, no. These interactive shells will exit after running any scripted commands, unless they are run in an interactive terminal - so for this example to not exit, you need to `docker run -it alpine /bin/sh`.
 
-You are now inside the container shell and you can try out a few commands like `ls -l`, `uptime` and others. Exit out of the container by giving the `exit` command. 
+You are now inside the container shell and you can try out a few commands like `ls -l`, `uptime` and others. Exit out of the container by giving the `exit` command.
 
 
 Ok, now it's time to see the `docker ps` command. The `docker ps` command shows you all containers that are currently running.
@@ -203,13 +203,13 @@ The image that you are going to use is a single-page website that was already cr
 $ docker run seqvence/static-site
 ```
 Since the image doesn't exist on your Docker host, the Docker daemon will first fetch the image from the registry and then run the image.
-Okay, now that the server is running, how do see the website? What port is it running on? And more importantly, how do you access the container directly from our host machine?
+Okay, now that the server is running, do you see the website? What port is it running on? And more importantly, how do you access the container directly from our host machine?
 
 In this case, the client didn't tell the Docker Engine to publish any of the ports so you need to re-run the `docker run` command. We'll take the oportunity to publish ports and pass your name to the container to customize the message displayed. While we are at it, you should also find a way so that our terminal is not attached to the running container. So that you can happily close your terminal and keep the container running. This is called the **detached** mode.
 
 Before we look at the **detached** mode, we should first find out a way to stop the container that you have just launched.
 
-First up, launch another terminal (command window) and execute the following command:
+First up, launch another terminal (command window) and execute the following command. If you're using docker-machine you need to run `eval $(docker-machine env <YOUR_DOCKER_MACHINE_NAME>)` in each new terminal otherwise you'll get the error "Cannot connect to the Docker daemon. Is the docker daemon running on this host?".
 ```
 $ docker ps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES
@@ -241,13 +241,13 @@ $ docker port static-site
 80/tcp -> 0.0.0.0:32773
 ```
 
-If you're on Linux, you can open [http://localhost:32772](http://localhost:32772) in your browser. If you're on Windows or a Mac, you need to find the IP of the hostname.
+If you're on Linux, you can open [http://localhost:32773](http://localhost:32773) (replace 32773 with your port for 80/tcp) in your browser. If you're on Windows or a Mac, you need to find the IP of the hostname.
 
 ```
 $ docker-machine ip default
 192.168.99.100
 ```
-You can now open [http://192.168.99.100:32772](http://192.168.99.100:32772) to see your site live!
+You can now open [http://192.168.99.100:32773](http://192.168.99.100:32773) to see your site live!
 
 You can also run a second webserver at the same time, specifying a custom host port mapping to the container's webserver.
 
@@ -299,7 +299,7 @@ $ docker pull ubuntu:12.04
 
 **NOTE**: Do not execute the above command. It is only for your reference.
 
-If you do not specify the version number of the image, then as mentioned the Docker client with default to a version named `latest`.
+If you do not specify the version number of the image, then as mentioned the Docker client will default to a version named `latest`.
 
 So for example, the `docker pull` command given below will pull an image named `ubuntu:latest`:
 
@@ -317,7 +317,7 @@ An important distinction to be aware of when it comes to images is between base 
 
 Then there are two more types of images that can be both base and child images, they are official and user images.
 
-- **Official images** Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all Official Repositories content. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community. These are not prefixed by an organization or user name. In the list of images above, the `python`, `node`, `alpine` and `nginx` images are base images. To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
+- **Official images** Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all Official Repositories content. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community. These are not prefixed by an organization or user name. In the list of images above, the `python`, `node`, `alpine` and `nginx` images are official (base) images. To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
 
 - **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Docker Hub user or organization name.
 
@@ -382,7 +382,7 @@ In order to install Python modules required for our app we need to add to **requ
 Flask==0.10.1
 ```
 
-Create `directory` templates and create a **index.html** file in that directory, to have the same content as below:
+Create a directory called `templates` and create a **index.html** file in that directory, to have the same content as below:
 
 ```
 <html>
@@ -424,12 +424,12 @@ FROM alpine:latest
 ```
 
 The next step usually is to write the commands of copying the files and installing the dependencies.
-But first we will install the Python pip package to the alpine linux distribution. This will not just install the pip package but any other dependencies too, which includes the python interpreter. Add the following command next:
+But first we will install the Python pip package to the alpine linux distribution. This will not just install the pip package but any other dependencies too, which includes the python interpreter. Add the following [RUN](https://docs.docker.com/engine/reference/builder/#run) command next:
 ```
 RUN apk add --update py-pip
 ```
 
-Next, let us add the files that make up the Flask Application. Create a directory for the app using [RUN](https://docs.docker.com/engine/reference/builder/#run) command:
+Next, let us add the files that make up the Flask Application.
 
 
 Install all Python requirements for our app to run. This will be accomplished by adding the lines:
@@ -483,7 +483,7 @@ CMD ["python", "/usr/src/app/app.py"]
 
 Now that you finally have your `Dockerfile`, you can now build your image. The `docker build` command does the heavy-lifting of creating a docker image from a `Dockerfile`.
 
-While running the `docker build` command give below, make sure to replace `<YOUR_USERNAME>`  with your username. This username should be the same on you created when you registered on [Docker hub](https://hub.docker.com). If you haven't done that yet, please go ahead and create an account. The `docker build` command is quite simple - it takes an optional tag name with `-t` and a location of the directory containing the `Dockerfile` - the `.` indicates the current directory:
+While running the `docker build` command given below, make sure to replace `<YOUR_USERNAME>`  with your username. This username should be the same on you created when you registered on [Docker hub](https://hub.docker.com). If you haven't done that yet, please go ahead and create an account. The `docker build` command is quite simple - it takes an optional tag name with `-t` and a location of the directory containing the `Dockerfile` - the `.` indicates the current directory:
 
 ```
 $ docker build -t <YOUR_USERNAME>/myfirstapp .
@@ -550,8 +550,9 @@ Step 8 : CMD python /usr/src/app/app.py
 Removing intermediate container 78e324d26576
 Successfully built 2f7357a0805d
 ```
-
-If you don't have the `alpine:latest` image, the client will first pull the image and then create your image. Therefore, your output on running the command will look different from mine. If everything went well, your image should be ready! Run `docker images` and see if your image (`<YOUR_USERNAME>\myfirstapp`) shows.
+> Note, the Alpine Linux CDN has been experiencing some trouble recently. If you encounter an error building this image, there's a workaround as outlined in [issue #104](https://github.com/docker/docker-birthday-3/issues/104). This is also reflected currently in the repo for the [Flask app](https://github.com/docker/docker-birthday-3/tree/master/flask-app)
+ 
+If you don't have the `alpine:latest` image, the client will first pull the image and then create your image. Therefore, your output on running the command will look different from mine. If everything went well, your image should be ready! Run `docker images` and see if your image (`<YOUR_USERNAME>/myfirstapp`) shows.
 
 The last step in this section is to run the image and see if it actually works.
 
@@ -636,9 +637,8 @@ This is what the file looks now like:
   "name":"Gordon",
   "twitter":"@docker",
   "location":"San Francisco, CA, USA",
-  "repo":["example/examplevotingapp_voting-app",\
-  			"example/examplevotingapp_result-app"],
-  "vote":"Cats"
+  "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
+  "vote":"Cat"
 }
 ```
 
@@ -647,10 +647,9 @@ Replace it with your data:
 ```
 {
   "name":"John Doe",
-  "twitter":"@YOUR_DOCKER_ID",
+  "twitter":"@YOUR_TWITTER_HANDLER",
   "location":"San Francisco, CA, USA",
-  "repo":["YOUR_DOCKER_ID/votingapp_voting-app", \
-  			"YOUR_DOCKER_ID/votingapp_result-app"],
+  "repo":["YOUR_DOCKER_ID/votingapp_voting-app","YOUR_DOCKER_ID/votingapp_result-app"],
   "vote":"Python"
 }
 ```
@@ -658,7 +657,7 @@ Replace it with your data:
 #### 3.2.3 Running your app
 Now, run your application. To do that, we'll use [Docker Compose](https://docs.docker.com/compose). Docker Compose is a tool for defining and running multi-container Docker applications. With Compose, you define a `.yml` file that describes all the containers and volumes that you want, and the networks between them. In the example-voting-app directory, you'll see a `docker-compose.yml file`:
 
-```
+```yml
 version: "2"
 
 services:
@@ -723,7 +722,7 @@ This Compose file defines
 - A Java based worker app based on a Java image
 - A Postgres container based on a postgres image
 
-Note that two of the containers are build from Dockerfiles, while the other three are images on Docker Hub. To learn more about how they're built, you can examine each of the Dockerfiles in the two directories: `voting-app`, `result-app`. We included the code for the Java worker in `worker` but pre-built the image to save on downloads.
+Note that two of the containers are built from Dockerfiles, while the other three are images on Docker Hub. To learn more about how they're built, you can examine each of the Dockerfiles in the two directories: `voting-app`, `result-app`. We included the code for the Java worker in `worker` but pre-built the image to save on downloads.
 
 The Compose file also defines two networks, front-tier and back-tier. Each container is placed on one or two networks. Once on those networks, they can access other services on that network in code just by using the name of the service. To learn more about networking check out the [Networking with Compose documentation](https://docs.docker.com/compose/networking/).
 
@@ -732,30 +731,38 @@ To launch your app navigate to the example-voting-app directory and run the foll
 ```
 $ docker-compose up -d
 ```
-This tells Compose to run the `docker-compose.yml` file in that directory. The `-d` tells it to run them in daemon mode, in the background.
 
-Last you'll need to figure out the ip address of your containers. If you're running Linux, it's just localhost, or 127.0.0.1. If you're using Docker Machine on Mac or Windows, you'll need to run:
+This tells Compose to start all the containers specified in the `docker-compose.yml` file. The `-d` tells it to run them in daemon mode, in the background.
+
+Last you'll need to figure out the ip address of your Docker host. If you're running Linux, it's just localhost, or 127.0.0.1. If you're using Docker Machine on Mac or Windows, you'll need to run:
 
 ```
 $ docker-machine ip default
 ```
-It'll return an IP address. If you only have one Docker Machine running, most likely, that's 192.168.99.100. We'll call that YOUR_IP_ADDRESS. Navigate to YOUR_IP_ADDRESS:5000 in your browser, and you'll see the voting app, something like this:
+
+It'll return an IP address. If you only have one Docker Machine running, most likely, that's 192.168.99.100. We'll call that `<YOUR_IP_ADDRESS>`. Navigate to `http://<YOUR_IP_ADDRESS>:5000` in your browser, and you'll see the voting app, something like this:
 
 <img src="https://raw.githubusercontent.com/docker/Docker-Birthday-3/master/tutorial-images/vote.png" title="vote">
 
-Click on one to vote. You can check the results at YOUR_IP_ADDRESS:5001.
+Click on one to vote. You can check the results at `http://<YOUR_IP_ADDRESS:5001>`.
+
+**NOTE**: If you are running this tutorial in a cloud environment like AWS, Azure, Digital Ocean, or GCE you will not have direct access to localhost or 127.0.0.1 via a browser.  A work around for this is to leverage ssh port forwarding.  Below is an example for Mac OS.  Similarly this can be done for Windows and Putty users.
+
+```
+$ ssh -L 5000:localhost:5000 <ssh-user>@<CLOUD_INSTANCE_IP_ADDRESS>
+```
 
 <a id="buildandtag"></a>
 #### 3.2.4 Build and tag images
 
-You are all set then. Navigate to each of the directories where you have a Dockerfile to build and tag your images that you want to submit.
+You are all set now. Navigate to each of the directories where you have a Dockerfile to build and tag your images that you want to submit.
 
-In order to build the images, make sure to replace your *Docker Hub username* and *Docker image name* in the following commands:
+In order to build the images, make sure to replace `<YOUR_DOCKER_ID>` with your *Docker Hub username* in the following commands:
 
 ```
-$ docker build --no-cache -t YOUR_DOCKER_ID/votingapp_voting-app .
+$ docker build --no-cache -t <YOUR_DOCKER_ID>/votingapp_voting-app .
 ...
-$ docker build --no-cache -t YOUR_DOCKER_ID/votingapp_result-app .
+$ docker build --no-cache -t <YOUR_DOCKER_ID>/votingapp_result-app .
 ...
 ```
 
@@ -765,16 +772,16 @@ $ docker build --no-cache -t YOUR_DOCKER_ID/votingapp_result-app .
 Push the images to Docker hub. Remember, you must have run `docker login` before you can push.
 
 ```
-$ docker push YOUR_DOCKER_ID/votingapp_voting-app
+$ docker push <YOUR_DOCKER_ID>/votingapp_voting-app
 ...
-$ docker push YOUR_DOCKER_ID/votingapp_result-app
+$ docker push <YOUR_DOCKER_ID>/votingapp_result-app
 ...
 ```
 
 <a id="confirmtraining"></a>
 ### 3.3 Confirm your completion
 
-Once you're completed steps 3.1 through 3.2.6 you can submit your application. It's very easy to do so. Navigate to your results app in the browser.
+Once you're completed steps 3.1 through 3.2.5 you can submit your application. It's very easy to do so.
 
 Get the *ID* of the running container running from image *examplevotingapp_result-app*:
 
@@ -793,7 +800,7 @@ App running on port 80
 Connected to db
 ```
 
-Open a browser and access YOUR_IP_ADDRESS:5001/birthday.html.
+Open a browser and access <YOUR_IP_ADDRESS>:5001/birthday.html.
 
 The page displayed will look like the one below:
 
@@ -801,7 +808,7 @@ The page displayed will look like the one below:
 
 Press the button.
 
-As soon as you did, return to your docker container where you are watching the log files and the output should look like:
+As soon as you do, return to your commandline where you are watching the log files and the output should look like:
 
 ```
 Thu, 10 Mar 2016 21:48:15 GMT body-parser deprecated bodyParser: use individual json/urlencoded middlewares at server.js:77:9
@@ -810,19 +817,18 @@ App running on port 80
 Connected to db
 YOUR_SUBMISSION_ID
 ```
-In order to check the status of your submission, copy your submission ID above and go to [dockerize.it](http://dockerize.it/). Paste the submission ID in the submission box above the map. It will take a few minutes for the submission status to go from "pending' to "accepted" and for your pin to appear on the map!
+Copy the submission ID above and go to [dockerize.it](http://dockerize.it/). Paste the submission ID in the submission box above the map. It will take a few minutes for the submission status to go from "pending' to "accepted" and for your pin to appear on the map!
 
 <a id="wrap-up"></a>
 ## 4.0 Wrap Up
-And that's a wrap! You are now ready to take the container world by storm! If you followed along till the very end then you should definitely be proud of yourself. You learned how to setup docker, run your own containers, use Docker Machine to create a Docker host and use Docker Compose to create a multi-container application.
+And that's a wrap! You are now ready to take the container world by storm! If you followed along till the very end then you should definitely be proud of yourself. You learned how to install docker, run your own containers, use Docker Machine to create a Docker host and use Docker Compose to create a multi-container application.
 
 Invite your friends to complete this [Docker Birthday Training] (https://github.com/docker/docker-birthday-3/)
-
-<a id="next-steps"></a>
-### 4.1 Next Steps
 
 <a href="#table-of-contents" class="top" id="preface">Top</a>
 <a id="references"></a>
 ## References
 - [What is docker](https://www.docker.com/what-docker)
 - [Docker Compose](https://docs.docker.com/compose)
+- [Prakhar Srivastav's Blog](http://prakhar.me) 
+
