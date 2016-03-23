@@ -178,6 +178,47 @@ Running the `run` command with the `-it` flags attaches us to an interactive tty
 
 That concludes a whirlwind tour of the `docker run` command which would most likely be the command you'll use most often. It makes sense to spend some time getting comfortable with it. To find out more about `run`, use `docker run --help` to see a list of all flags it supports. As you proceed further, we'll see a few more variants of `docker run`.
 
+```
+$ docker inspect alpine
+[
+    {
+        "Id": "sha256:70c557e50ed630deed07cbb0dc4d28aa0f2a485cf7af124cc48f06bce83f784b",
+        "RepoTags": [
+            "alpine:latest"
+        ],
+        "RepoDigests": [],
+        "Parent": "",
+        "Comment": "",
+        "Created": "2016-03-02T17:16:00.167415955Z",
+        "Container": "eb53609036555d26c39bdccfa9850426934bdfde96111d099041689b2251a377",
+        "ContainerConfig": {
+            "Hostname": "eb5360903655",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": null,
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ADD file:81ba6f20bdb99e6c13c434a577069860b6656908031162083b1ac9c02c71dd9f in /"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null
+        },
+......
+......
+```
+As, you can see `docker inspect` render all results in a JSON array. Its a core docker instruction with detailed documentation. We can inspect container or image or combination of both images and containers, respectively. The results of inspecting an image differ from the results of inspecting a container. And in result the important objects are ID, Parent, Container, ContainerConfig, DockerVersion, Virtual Size, Volumes, etc. If you notice `"Volumes": null` because we have not used any volumes for this image. If you apply the same to our challenge app i.e. example-voting-app you can see the respective directory for volumes.
+
 <a id="terminology"></a>
 ### 1.2 Terminology
 In the last section, you saw a lot of Docker-specific jargon which might be confusing to some. So before you go further, let's clarify some terminology that is used frequently in the Docker ecosystem.
