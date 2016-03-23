@@ -1,4 +1,4 @@
-FROM windowsservercore
+FROM windowsservercore:10.0.10586.0
 
 RUN powershell -Command \
     Sleep 2; \

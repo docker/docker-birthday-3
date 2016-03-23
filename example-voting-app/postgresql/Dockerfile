@@ -10,7 +10,7 @@
 # linux Dockerfile implementation:
 #   https://docs.docker.com/engine/examples/postgresql_service/
 
-FROM windowsservercore
+FROM windowsservercore:10.0.10586.0
 
 # maintainer for image metadata
 MAINTAINER Buc Rogers
