@@ -33,6 +33,8 @@ function Open-Port {
 
 Open-Port($voting_port)
 Open-Port($result_port)
+#Open-Port(5432)
+#Open-Port(6379)
 
 Write-Host Starting db
 docker run --name db -d postgresql
