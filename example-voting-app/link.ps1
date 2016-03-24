@@ -21,6 +21,21 @@ function Add-Link {
   Write-Host Add link to $hostname=$ip to container $container
 }
 
+
+function Open-Port {
+  param( [int]$port )
+  if (!(Get-NetFirewallRule | where {$_.Name -eq "DockerPort$port"})) {
+      New-NetFirewallRule -Name "DockerPort$port" -DisplayName "Docker on TCP/$port" -Protocol tcp -LocalPort $port -Action Allow -Enabled True
+  }
+}
+
+$voting_port = 80
+$result_port = 80
+Open-Port($voting_port)
+Open-Port($result_port)
+Open-Port(5432)
+Open-Port(6379)
+
 $db_ip = Get-IP("examplevotingapp_db_1")
 $redis_ip = Get-IP("examplevotingapp_redis_1")
 

@@ -18,6 +18,9 @@ Running
 Run in this directory:
 
     $ docker-compose up -d
+
+Now we have to link the containers with the following helper script. This must be called with administrator privileges as we have to open some ports in the Windows firewall.
+
     $ .\link.ps1
 
 To open the two web pages run this command:
