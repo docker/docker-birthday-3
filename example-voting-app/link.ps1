@@ -15,9 +15,6 @@ function Get-IP {
 
 function Add-Link {
   param( [string]$container, [string]$hostname, [string]$ip )
-  Write-Host $container
-  Write-Host $hostname
-  Write-Host $ip
   $out = $(docker exec -it $container "cmd /c echo $ip $hostname >>C:\Windows\system32\drivers\etc\hosts")
   Write-Host docker exec -it $container "cmd /c echo $ip $hostname"
 
