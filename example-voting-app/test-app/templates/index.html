@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Test app</h3>
+<div>
+    <div>Testing voting-app on {{ target_host }}:{{ target_port }} ({{target_ip}})</div>    
+    <div>
+      <div>{{ link_to('vote', "Vote for option a", opt='a') }}</div>    
+      <div>{{ link_to('vote', "Vote for option b", opt='b') }}</div>
+    </div>
+    <div>
+      <div>Votes for option a {{ votes_a }}</div>    
+      <div>Votes for option b {{ votes_b }}</div>
+    </div>
+    <div>
+      <div>{{ link_to('clear', "Clear option a", opt='a') }}</div>    
+      <div>{{ link_to('clear', "Clear option b", opt='b') }}</div>
+    </div>
+    <div>
+      
+    </div>
+</div>    
+{% endblock %}

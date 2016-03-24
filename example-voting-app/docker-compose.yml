@@ -25,6 +25,17 @@ services:
       - front-tier
       - back-tier
 
+#  test-app:
+#    build: ./test-app/.
+#    volumes:
+#     - ./test-app:/app/
+#    ports:
+#      - "5002:80"
+#    links:
+#      - voting-app
+#    networks:
+#      - front-tier  
+
   worker:
     image: manomarks/worker
     links:
@@ -43,6 +54,8 @@ services:
     image: postgres:9.4
     volumes:
       - "db-data:/var/lib/postgresql/data"
+    ports:
+      - "5003:5432"
     networks:
       - back-tier
 

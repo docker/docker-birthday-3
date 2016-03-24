@@ -1,0 +1,5 @@
+Flask
+Redis
+requests
+flask-wtf
+psycopg2
