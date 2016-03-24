@@ -1,7 +1,7 @@
-Example Voting App
-==================
+Example Voting App on Windows Server 2016 TP4
+=============================================
 
-This is an example Docker app with multiple services. It is run with Docker Compose and uses Docker Networking to connect containers together. You will need Docker Compose 1.6 or later.
+This is an example Docker app with multiple services. It is run with Docker Compose, but does not use Docker Networking at the moment. It uses a small PowerShell helper script to connect containers together. You will need Docker Compose 1.6 or later.
 
 Architecture
 -----
@@ -17,6 +17,11 @@ Running
 
 Run in this directory:
 
-    $ docker-compose up
+    $ docker-compose up -d
+    $ .\link.ps1
 
-The app will be running on port 5000 on your Docker host, and the results will be on port 5001.
+To open the two web pages run this command:
+
+    $ .\browse.ps1
+
+The app will be running on port 80 on your voting-app container, and the results will be on port 80 in result-app container.
