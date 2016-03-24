@@ -50,13 +50,25 @@ button.b{
   font-size: 14px;
 }
 
+.container
+{
+    width:940px;
+}
+
+
+input.form-control
+{
+display:inline;
+width:100px;
+}
+
 #content-container{
   z-index: 2;
   position: relative;
   margin: 0 auto;
   display: table;
   padding: 10px;
-  max-width: 940px;
+  width: 940px;
   height: 100%;
 }
 #content-container-center{

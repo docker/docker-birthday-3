@@ -25,16 +25,23 @@ services:
       - front-tier
       - back-tier
 
-#  test-app:
-#    build: ./test-app/.
-#    volumes:
-#     - ./test-app:/app/
-#    ports:
-#      - "5002:80"
-#    links:
-#      - voting-app
-#    networks:
-#      - front-tier  
+  test-app:
+    build: ./test-app/.
+    volumes:
+     - ./test-app:/app/
+    ports:
+      - "5002:80"
+    links:
+      - voting-app
+      - db
+    environment:
+      - TESTAPP_VOTING_HOST=voting-app
+      - TESTAPP_VOTING_PORT=80
+      - TESTAPP_POSTGRES_HOST=db
+      - TESTAPP_POSTGRES_PORT=5432      
+    networks:
+      - front-tier  
+      - back-tier
 
   worker:
     image: manomarks/worker
@@ -54,8 +61,6 @@ services:
     image: postgres:9.4
     volumes:
       - "db-data:/var/lib/postgresql/data"
-    ports:
-      - "5003:5432"
     networks:
       - back-tier
 

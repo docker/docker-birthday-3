@@ -1,23 +1,30 @@
 {% extends "base.html" %}
 
-{% block content %}
-<h3>Test app</h3>
-<div>
-    <div>Testing voting-app on {{ target_host }}:{{ target_port }} ({{target_ip}})</div>    
-    <div>
-      <div>{{ link_to('vote', "Vote for option a", opt='a') }}</div>    
-      <div>{{ link_to('vote', "Vote for option b", opt='b') }}</div>
-    </div>
-    <div>
-      <div>Votes for option a {{ votes_a }}</div>    
-      <div>Votes for option b {{ votes_b }}</div>
-    </div>
-    <div>
-      <div>{{ link_to('clear', "Clear option a", opt='a') }}</div>    
-      <div>{{ link_to('clear', "Clear option b", opt='b') }}</div>
-    </div>
-    <div>
-      
-    </div>
-</div>    
+{% block child_content %}
+<h3>Testing voting-app on {{ target_host }}:{{ target_port }} ({{target_ip}})</h3>
+<br/>
+<div class="row">
+    <div class="col-md-12"><h4>Vote Count (queried from database)</h4></div>
+    <div class="col-md-6">Votes for option a {{ votes_a }}</div>
+    <div class="col-md-6">Votes for option b {{ votes_b }}</div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-12"><h4>Vote once (via HTTP POST)</h4></div>
+    <div class="col-md-6">{{ link_to('vote', "Vote for option a", opt='a') }}</div>
+    <div class="col-md-6">{{ link_to('vote', "Vote for option b", opt='b') }}</div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-12"><h4>Vote multiple times (via HTTP POST)</h4></div>
+    <div class="col-md-12>">{{ quick_form(form) }}</div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-12"><h4>Clear votes (via database query)</h4></div>
+    <div class="col-md-6">{{ link_to('clear', "Clear votes for option a", opt='a') }}</div>
+    <div class="col-md-6">{{ link_to('clear', "Clear votes for option b", opt='b') }}</div>
+</div>
+
+
 {% endblock %}

@@ -2,7 +2,7 @@
 FROM python:2.7-alpine
 
 # contains pg_config which is needed for 
-RUN apk add --update postgresql-dev python-dev
+RUN apk add --update build-base postgresql-dev python-dev
 
 # Set the application directory
 WORKDIR /app

@@ -1,37 +1,25 @@
 {% from "_helpers.html" import link_to %}
+{% from "bootstrap/wtf.html" import quick_form %}
+{% from "bootstrap/utils.html" import flashed_messages %}
+{% extends "bootstrap/base.html" %}
+{% block title %}Test app{% endblock %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>{{option_a}} vs {{option_b}}!</title>
-    <base href="/index.html">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
-    <meta name="keywords" content="docker-compose, docker, stack">
-    <meta name="author" content="Docker">
-    <link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  </head>
-  <body>
-    <div id="content-container">
 
-      <div id="content-container-center">
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-              <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}      
-      </div>
+{% block content %}
+<div id="content-container">
+    <div id="content-container-center">
+        {{ flashed_messages() }}
+        {% block child_content %}
+        {% endblock %}
     </div>
+</div>
+{% endblock %}
 
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+{% block styles %}
+{{super()}}
+<link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}"/>
+{% endblock %}
 
 
-  </body>
-</html>
+<!--<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>-->
