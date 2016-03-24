@@ -9,7 +9,7 @@ worker:
   build: ./worker/.
 
 redis:
-  image: microsoft/redis
+  build: ./redis/.
 
 db:
-  build: ./postgres/.
+  build: ./postgresql/.
