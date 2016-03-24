@@ -1,0 +1,6 @@
+Flask
+Redis
+requests
+flask-wtf
+psycopg2
+flask_bootstrap
