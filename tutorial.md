@@ -42,7 +42,7 @@ This document contains a series of several sections, each of which explains a pa
 -  [3.0 Birthday training](#dockercompetition)
   - [3.1 Pull voting-app images](#pullimage)
   - [3.2 Customize the App](#customize)
-                - [3.2.1 Modify app.py](#modifyapp)
+    - [3.2.1 Modify app.py](#modifyapp)
     - [3.2.2 Modify config.json](#modifyconfig)
     - [3.2.3 Building and running the app](#buildvotingapp)
     - [3.2.4 Build and tag images](#buildandtag)
@@ -203,13 +203,13 @@ The image that you are going to use is a single-page website that was already cr
 $ docker run seqvence/static-site
 ```
 Since the image doesn't exist on your Docker host, the Docker daemon will first fetch the image from the registry and then run the image.
-Okay, now that the server is running, how do see the website? What port is it running on? And more importantly, how do you access the container directly from our host machine?
+Okay, now that the server is running, do you see the website? What port is it running on? And more importantly, how do you access the container directly from our host machine?
 
 In this case, the client didn't tell the Docker Engine to publish any of the ports so you need to re-run the `docker run` command. We'll take the oportunity to publish ports and pass your name to the container to customize the message displayed. While we are at it, you should also find a way so that our terminal is not attached to the running container. So that you can happily close your terminal and keep the container running. This is called the **detached** mode.
 
 Before we look at the **detached** mode, we should first find out a way to stop the container that you have just launched.
 
-First up, launch another terminal (command window) and execute the following command:
+First up, launch another terminal (command window) and execute the following command. If you're using docker-machine you need to run `eval $(docker-machine env <YOUR_DOCKER_MACHINE_NAME>)` in each new terminal otherwise you'll get the error "Cannot connect to the Docker daemon. Is the docker daemon running on this host?".
 ```
 $ docker ps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES
@@ -241,13 +241,13 @@ $ docker port static-site
 80/tcp -> 0.0.0.0:32773
 ```
 
-If you're on Linux, you can open [http://localhost:32773](http://localhost:32773) in your browser. If you're on Windows or a Mac, you need to find the IP of the hostname.
+If you're on Linux, you can open [http://localhost:32773](http://localhost:32773) (replace 32773 with your port for 80/tcp) in your browser. If you're on Windows or a Mac, you need to find the IP of the hostname.
 
 ```
 $ docker-machine ip default
 192.168.99.100
 ```
-You can now open [http://192.168.99.100:32773](http://192.168.99.100:32773) to see your site live!
+You can now open [http://192.168.99.100:32773](http://192.168.99.100:32773) (replace 32773 with your port for 80/tcp) to see your site live!
 
 You can also run a second webserver at the same time, specifying a custom host port mapping to the container's webserver.
 
@@ -550,7 +550,8 @@ Step 8 : CMD python /usr/src/app/app.py
 Removing intermediate container 78e324d26576
 Successfully built 2f7357a0805d
 ```
-
+> Note, the Alpine Linux CDN has been experiencing some trouble recently. If you encounter an error building this image, there's a workaround as outlined in [issue #104](https://github.com/docker/docker-birthday-3/issues/104). This is also reflected currently in the repo for the [Flask app](https://github.com/docker/docker-birthday-3/tree/master/flask-app)
+ 
 If you don't have the `alpine:latest` image, the client will first pull the image and then create your image. Therefore, your output on running the command will look different from mine. If everything went well, your image should be ready! Run `docker images` and see if your image (`<YOUR_USERNAME>/myfirstapp`) shows.
 
 The last step in this section is to run the image and see if it actually works.
@@ -587,6 +588,8 @@ $ docker login
 ```
 
 And follow the login directions. Now you can push images to Docker Hub.
+
+> Note: If you encounter an error response from daemon while attempting to login, you may need to restart your machine by running `docker-machine restart <YOUR_DOCKER_MACHINE_NAME>`.
 
 
 <a id="pullimage"></a>
@@ -636,9 +639,8 @@ This is what the file looks now like:
   "name":"Gordon",
   "twitter":"@docker",
   "location":"San Francisco, CA, USA",
-  "repo":["example/examplevotingapp_voting-app",\
-        "example/examplevotingapp_result-app"],
-  "vote":"Cats"
+  "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
+  "vote":"Cat"
 }
 ```
 
@@ -649,8 +651,7 @@ Replace it with your data:
   "name":"John Doe",
   "twitter":"@YOUR_TWITTER_HANDLER",
   "location":"San Francisco, CA, USA",
-  "repo":["YOUR_DOCKER_ID/votingapp_voting-app", \
-        "YOUR_DOCKER_ID/votingapp_result-app"],
+  "repo":["YOUR_DOCKER_ID/votingapp_voting-app","YOUR_DOCKER_ID/votingapp_result-app"],
   "vote":"Python"
 }
 ```
@@ -668,8 +669,6 @@ services:
      - ./voting-app:/app
     ports:
       - "5000:80"
-    links:
-      - redis
     networks:
       - front-tier
       - back-tier
@@ -680,28 +679,25 @@ services:
       - ./result-app:/app
     ports:
       - "5001:80"
-    links:
-      - db
     networks:
       - front-tier
       - back-tier
 
   worker:
     image: manomarks/worker
-    links:
-      - db
-      - redis
     networks:
       - back-tier
 
   redis:
     image: redis:alpine
+    container_name: redis
     ports: ["6379"]
     networks:
       - back-tier
 
   db:
     image: postgres:9.4
+    container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
     networks:
