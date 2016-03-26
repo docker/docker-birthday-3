@@ -247,7 +247,7 @@ If you're on Linux, you can open [http://localhost:32773](http://localhost:32773
 $ docker-machine ip default
 192.168.99.100
 ```
-You can now open [http://192.168.99.100:32773](http://192.168.99.100:32773) to see your site live!
+You can now open [http://192.168.99.100:32773](http://192.168.99.100:32773) (replace 32773 with your port for 80/tcp) to see your site live!
 
 You can also run a second webserver at the same time, specifying a custom host port mapping to the container's webserver.
 
@@ -589,6 +589,8 @@ $ docker login
 
 And follow the login directions. Now you can push images to Docker Hub.
 
+> Note: If you encounter an error response from daemon while attempting to login, you may need to restart your machine by running `docker-machine restart <YOUR_DOCKER_MACHINE_NAME>`.
+
 
 <a id="pullimage"></a>
 ### 3.1 Get the voting-app
@@ -667,8 +669,6 @@ services:
      - ./voting-app:/app
     ports:
       - "5000:80"
-    links:
-      - redis
     networks:
       - front-tier
       - back-tier
@@ -679,28 +679,25 @@ services:
       - ./result-app:/app
     ports:
       - "5001:80"
-    links:
-      - db
     networks:
       - front-tier
       - back-tier
 
   worker:
     image: manomarks/worker
-    links:
-      - db
-      - redis
     networks:
       - back-tier
 
   redis:
     image: redis:alpine
+    container_name: redis
     ports: ["6379"]
     networks:
       - back-tier
 
   db:
     image: postgres:9.4
+    container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
     networks:
