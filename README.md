@@ -1,4 +1,4 @@
-# Docker Birthday #3 :tada: :birthday: :tada:
+# Docker Birthday #3 Scalable/Secure Birthday app on Swarm:tada: :birthday: :tada:
 
 > Scalable and Secured Birthday App Project on Docker Swarm
 
