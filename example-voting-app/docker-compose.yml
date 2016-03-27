@@ -1,28 +1,38 @@
 version: "2"
 
 services:
-  voting-app:
-    build: ./voting-app/.
+  lb:
+    image: haproxy
+    depends_on:
+      - voting-app
+      - result-app
+    container_name: lb
     volumes:
-     - ./voting-app:/app
+      - ./lb/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     ports:
-      - "5000:80"
+      - "5000:8000"
+      - "5001:8001"
     networks:
       - front-tier
       - back-tier
 
+  voting-app:
+    image: dvnagesh/votingapp_voting-app
+    volumes:
+     - ./voting-app:/app
+    networks:
+      - back-tier
+
   result-app:
-    build: ./result-app/.
+    image: dvnagesh/votingapp_result-app
     volumes:
       - ./result-app:/app
-    ports:
-      - "5001:80"
     networks:
-      - front-tier
       - back-tier
 
   worker:
     image: manomarks/worker
+    container_name: worker
     networks:
       - back-tier
 
@@ -40,7 +50,6 @@ services:
       - "db-data:/var/lib/postgresql/data"
     networks:
       - back-tier
-
 volumes:
   db-data:
 
