@@ -68,6 +68,7 @@ At the training, you will need to bring your own computer. Before you go to a bi
    docker pull redis:alpine
    docker pull postgres:9.4
    ```
+Install and configure Consul KV Store and Docker swarm.
 And now you're ready. See you at the birthday party!
 
 
