@@ -33,7 +33,7 @@ Based on the feedback we’ve received from Docker meetup organizers, we learned
 
 Participants in the training will go through the steps involved in running and developing a simple voting app from a fresh computer using the Docker Toolbox. This simple app will include:
 
-![birthday3-app-architecture](docker-birthday-3/docker-bday.jpg)
+![birthday3-app-architecture](./docker-bday.jpg)
 
 - **A Python webapp**: which lets you vote between several options
 - **A Redis queue**: which collects new votes
