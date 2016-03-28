@@ -37,13 +37,13 @@ Participants in the training will go through the steps involved in running and d
 
 Here you see the services, which are used and how they depend on each other.
 
-<img src="https://cdn.rawgit.com/lindt/docker-birthday-3-cucumber/master/img/tutorial-images/link_graph.svg">
+<img src="https://cdn.rawgit.com/lindt/docker-birthday-3-cucumber/master/tutorial-images/link_graph.svg">
 
 #### Boundaries
 
 Here you see all boundaries the system has.
 
-<img src="https://cdn.rawgit.com/lindt/docker-birthday-3-cucumber/master/img/tutorial-images/boundaries.svg">
+<img src="https://cdn.rawgit.com/lindt/docker-birthday-3-cucumber/master/tutorial-images/boundaries.svg">
 
 - **A Python webapp**: which lets you vote between several options
 - **A Redis queue**: which collects new votes
