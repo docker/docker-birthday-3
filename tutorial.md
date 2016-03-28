@@ -601,7 +601,7 @@ Start by quickly reading the documentation available [here](https://docs.docker.
 Clone the voting-app repository already available at [Github Repo](https://github.com/docker/docker-birthday-3.git).
 
 ```
-git clone https://github.com/docker/docker-birthday-3.git
+git clone https://github.com/dvnagesh/docker-birthday-3.git
 ```
 
 <a id="customize"></a>
@@ -663,28 +663,38 @@ Now, run your application. To do that, we'll use [Docker Compose](https://docs.d
 version: "2"
 
 services:
-  voting-app:
-    build: ./voting-app/.
+  lb:
+    image: haproxy
+    depends_on:
+      - voting-app
+      - result-app
+    container_name: lb
     volumes:
-     - ./voting-app:/app
+      - ./lb/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     ports:
-      - "5000:80"
+      - "5000:8000"
+      - "5001:8001"
     networks:
       - front-tier
       - back-tier
 
+  voting-app:
+    image: dvnagesh/votingapp_voting-app
+    volumes:
+     - ./voting-app:/app
+    networks:
+      - back-tier
+
   result-app:
-    build: ./result-app/.
+    image: dvnagesh/votingapp_result-app
     volumes:
       - ./result-app:/app
-    ports:
-      - "5001:80"
     networks:
-      - front-tier
       - back-tier
 
   worker:
     image: manomarks/worker
+    container_name: worker
     networks:
       - back-tier
 
@@ -702,13 +712,11 @@ services:
       - "db-data:/var/lib/postgresql/data"
     networks:
       - back-tier
-
 volumes:
   db-data:
 
 networks:
   front-tier:
-  back-tier:
 ```
 
 This Compose file defines
@@ -718,6 +726,7 @@ This Compose file defines
 - A redis container based on a redis image, to temporarily store the data.
 - A Java based worker app based on a Java image
 - A Postgres container based on a postgres image
+- A haproxy based load balancer (front tier facing), for both voting and result services.
 
 Note that two of the containers are built from Dockerfiles, while the other three are images on Docker Hub. To learn more about how they're built, you can examine each of the Dockerfiles in the two directories: `voting-app`, `result-app`. We included the code for the Java worker in `worker` but pre-built the image to save on downloads.
 
@@ -742,6 +751,11 @@ It'll return an IP address. If you only have one Docker Machine running, most li
 <img src="https://raw.githubusercontent.com/docker/Docker-Birthday-3/master/tutorial-images/vote.png" title="vote">
 
 Click on one to vote. You can check the results at `http://<YOUR_IP_ADDRESS:5001>`.
+
+Scale voting and result services and they will be load balanced via load balancer.
+```
+$ docker-compose scale voting-app=4 result-app=4
+```
 
 **NOTE**: If you are running this tutorial in a cloud environment like AWS, Azure, Digital Ocean, or GCE you will not have direct access to localhost or 127.0.0.1 via a browser.  A work around for this is to leverage ssh port forwarding.  Below is an example for Mac OS.  Similarly this can be done for Windows and Putty users.
 
