@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'rubocop'
+gem 'docker-api'
+gem 'cucumber'
+gem 'gherkin_format'
