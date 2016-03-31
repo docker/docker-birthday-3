@@ -86,7 +86,7 @@ Here are some ideas the Docker team brainstormed:
 For Devs:
 * Rewrite or add features to the following apps:
   * Python webapp which lets you vote between two options
-  * JAca worker which consumes votes and stores them
+  * Java worker which consumes votes and stores them
   * Node.js webapp shich shows the results of the voting in real time
 * Write something to generate random votes so you can load test the app
 
