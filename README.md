@@ -7,7 +7,8 @@
 - Video series on setting up Docker on your machine: [Mac](https://www.youtube.com/watch?v=lNkVxDSRo7M), [Windows](https://youtu.be/S7NVloq0EBc) and [Linux](https://www.youtube.com/watch?v=V9AKvZZCWLc)
 - [Training materials](#training-materials)
 - [Pre-tutorial preparation](#pre-tutorial-preparation)
-- [IN-tutorial guidelines](./tutorial.md)
+- [Tutorial guidelines](./tutorial.md)
+- [Birthday App Challenge!](#challenge)
 
 <a href="https://www.docker.com/docker-birthday"><img align="right" src="https://www.docker.com/sites/default/files/illustration-com-container-party.png"></a>
 
@@ -67,6 +68,36 @@ At the training, you will need to bring your own computer. Before you go to a bi
    docker pull redis:alpine
    docker pull postgres:9.4
    ```
-And now you're ready. See you at the birthday party!
+And now you're ready. See you at the birthday party!<a name="challenge"></a>
 
+
+### Docker Birthday #3 App Challenge
+
+Once you finish the tutorial, we encourage you to continue hacking on the app!
+
+*All submissions are due by Tuesday, April 15th at 9am PST.*
+
+We’re running a challenge for the best hack to improve this app - the best hack wins a very special Docker swag package and complimentary pass to [DockerCon 2016](http://2016.dockercon.com/)! The two runner-ups will receive an awesome Docker hoodie and all of these hacks will be featured in a blog post on [blog.docker.com](https://blog.docker.com/).
+
+We encourage you to build a cool hack based on what you learned. Our advice is to be creative, make sure it’s useful and most importantly, have fun!
+
+Here are some ideas the Docker team brainstormed:
+
+For Devs:
+* Rewrite or add features to the following apps:
+  * Python webapp which lets you vote between two options
+  * JAca worker which consumes votes and stores them
+  * Node.js webapp shich shows the results of the voting in real time
+* Write something to generate random votes so you can load test the app
+
+For Ops:
+
+* Bring Docker Swarm in the mix
+* Add Interlock: [github.com/ehazlett/interlock](https://github.com/ehazlett/interlock)
+* Scale out the worker nodes using Docker Cloud
+
+In order to qualify for the prizes, you must follow these steps by Monday, April 18th at 9am PST:
+
+1. Submit your entry at [bit.ly/1TLpxuK](https://docs.google.com/forms/d/1TKCYetzv8IZh09E9uT0bDL3JpS_ZHJw3duh9XUaAPhQ/viewform)
+2. Submit your PR at [github.com/docker/docker-birthday-3](https://github.com/docker/docker-birthday-3)
 

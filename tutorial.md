@@ -49,7 +49,7 @@ This document contains a series of several sections, each of which explains a pa
     - [3.2.5 Push images to Docker Hub](#pushimages)
   - [3.3 Enter competition](#confirmtraining)
   - [3.4 Check your submission status](#checkstatus)
--  [4.0 Wrap Up](#wrap-up)
+-  [4.0 Next Steps: Docker Birthday #3 App Challenge](#wrap-up)
 -  [References](#references)
 
 
@@ -817,10 +817,42 @@ YOUR_SUBMISSION_ID
 Copy the submission ID above and go to [dockerize.it](http://dockerize.it/). Paste the submission ID in the submission box above the map. It will take a few minutes for the submission status to go from "pending' to "accepted" and for your pin to appear on the map!
 
 <a id="wrap-up"></a>
-## 4.0 Wrap Up
-And that's a wrap! You are now ready to take the container world by storm! If you followed along till the very end then you should definitely be proud of yourself. You learned how to install docker, run your own containers, use Docker Machine to create a Docker host and use Docker Compose to create a multi-container application.
+## 4.0 Next Steps: Docker Birthday #3 App Challenge
+Well done! You are now ready to take the container world by storm! If you followed along till the very end then you should definitely be proud of yourself. You learned how to install docker, run your own containers, use Docker Machine to create a Docker host and use Docker Compose to create a multi-container application.
+
+Now that you have finished the tutorial, you should continue hacking on the app!
+
+We’re running a challenge for the best hack to improve this app - the best hack wins a very special Docker swag package and complimentary pass to [DockerCon 2016](http://2016.dockercon.com/)! The two runner-ups will receive an awesome Docker hoodie and all of these hacks will be featured in a blog post on [blog.docker.com](https://blog.docker.com/).
+
+
+*All submissions are due by Monday, April 18th at 9am PST.*
+
+
+We encourage you to build a cool hack based on what you learned. Our advice is to be creative, make sure it’s useful and most importantly, have fun!
+
+Here are some ideas the Docker team brainstormed:
+
+For Devs:
+* Rewrite or add features to the following apps:
+  * Python webapp which lets you vote between two options
+  * JAca worker which consumes votes and stores them
+  * Node.js webapp shich shows the results of the voting in real time
+* Write something to generate random votes so you can load test the app
+
+For Ops:
+
+* Bring Docker Swarm in the mix
+* Add Interlock: [github.com/ehazlett/interlock](https://github.com/ehazlett/interlock)
+* Scale out the worker nodes using Docker Cloud
+
+In order to qualify for the prizes, you must follow these steps by Tuesday, April 15th at 9am PST:
+
+1. Submit your entry at [bit.ly/1TLpxuK](https://docs.google.com/forms/d/1TKCYetzv8IZh09E9uT0bDL3JpS_ZHJw3duh9XUaAPhQ/viewform)
+2. Submit your PR at [github.com/docker/docker-birthday-3](https://github.com/docker/docker-birthday-3)
+
 
 Invite your friends to complete this [Docker Birthday Training] (https://github.com/docker/docker-birthday-3/)
+
 
 <a href="#table-of-contents" class="top" id="preface">Top</a>
 <a id="references"></a>
