@@ -1,7 +1,7 @@
 {
-  "name":"Gordon",
+  "name":"Steve Jiang",
   "twitter":"@docker",
   "location":"San Francisco, CA, USA",
-  "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
-  "vote":"Cat"
+  "repo":["garukun/dkbday-voting-app","garukun/dkbday-result-app"],
+  "vote":"Python"
 }
