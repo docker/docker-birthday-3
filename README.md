@@ -37,3 +37,7 @@
    docker pull postgres:9.4
    ```
 And now you're ready.
+
+### Logging using ELK Stack
+For the logging, we use ELK Stack. You can find ElasticSearch and Kibana service in etc/elk, and running it
+with `docker-compose up -d`. For the logstash, which is the agent to collect the log I've added it as container in example-voting-app [docker-compose](https://github.com/HieronyM/docker-birthday-3/blob/master/example-voting-app/docker-compose.yml).
