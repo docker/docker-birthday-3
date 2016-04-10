@@ -1,0 +1,19 @@
+elasticsearch:
+  build: elasticsearch/
+  command: elasticsearch -Des.network.host=0.0.0.0
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    -  /opt/elasticsearch:/usr/share/elasticsearch/data
+  restart: always
+
+kibana:
+  build: kibana/
+  volumes:
+    - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch
+  restart: always
