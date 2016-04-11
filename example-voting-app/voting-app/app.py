@@ -7,9 +7,12 @@ import os
 import socket
 import random
 import json
+# import pprint
 
-option_a = os.getenv('OPTION_A', "One")
-option_b = os.getenv('OPTION_B', "Two")
+option_a = os.getenv('OPTION_A', "JavaScript")
+option_b = os.getenv('OPTION_B', "PHP")
+
+programming_languages = ["C++", "JavaScript", "Java", "PHP", ".NET", "Python", "Perl"]
 
 hostname = socket.gethostname()
 
@@ -41,6 +44,40 @@ def hello():
     resp.set_cookie('voter_id', voter_id)
     return resp
 
+@app.route("/generate-random-votes", methods=['GET'])
+def generate_random_votes():
+    # how many random votes to generate
+    total_votes_to_generate = int(request.args.get('count', 0))
+    if total_votes_to_generate is 0:
+        total_votes_to_generate = 100 # default
+
+    random_votes = []
+    
+    while (total_votes_to_generate):
+        # identify randomly generated voter id as multiplier of 1000
+        voter_id = '#' + hex(random.getrandbits(64))[2:-1] # prepend with # to distinct as auto generated voter ids
+        vote = random.choice(programming_languages)
+
+        # pprint.pprint(globals())
+        # pprint.pprint(locals())
+
+        jsonVote = {'voter_id': voter_id, 'vote': vote}
+        data = json.dumps(jsonVote)
+        redis.rpush('votes', data)
+
+        random_votes.append(jsonVote)
+
+        total_votes_to_generate = total_votes_to_generate - 1
+
+
+	# dump(random_votes)
+    resp = make_response(render_template(
+        'generate-random-votes.html',
+        random_votes=random_votes,
+    ))
+
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0';
+    return resp
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
