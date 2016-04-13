@@ -12,7 +12,7 @@ import json
 option_a = os.getenv('OPTION_A', "JavaScript")
 option_b = os.getenv('OPTION_B', "PHP")
 
-programming_languages = ["C++", "JavaScript", "Java", "PHP", ".NET", "Python", "Perl"]
+programming_languages = {'cplusplus': 'C++', 'dotnet': '.NET', 'php': 'PHP', 'javascript': 'JavaScript', 'java': 'Java', 'pyhton': 'Python', 'perl': 'Perl'}
 
 hostname = socket.gethostname()
 
@@ -27,18 +27,20 @@ def hello():
         voter_id = hex(random.getrandbits(64))[2:-1]
 
     vote = None
+    voteKey = None
 
     if request.method == 'POST':
-        vote = request.form['vote']
+        voteKey = request.form['voteKey']
+        vote = programming_languages[voteKey]
         data = json.dumps({'voter_id': voter_id, 'vote': vote})
         redis.rpush('votes', data)
 
     resp = make_response(render_template(
         'index.html',
-        option_a=option_a,
-        option_b=option_b,
+        programming_languages=programming_languages,
         hostname=hostname,
-        vote=vote,
+        voteKey=voteKey,
+        vote=vote
     ))
     resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0';
     resp.set_cookie('voter_id', voter_id)
@@ -56,7 +58,8 @@ def generate_random_votes():
     while (total_votes_to_generate):
         # identify randomly generated voter id as multiplier of 1000
         voter_id = '#' + hex(random.getrandbits(64))[2:-1] # prepend with # to distinct as auto generated voter ids
-        vote = random.choice(programming_languages)
+        voteKey = random.choice(programming_languages.keys())
+        vote = programming_languages[voteKey]
 
         # pprint.pprint(globals())
         # pprint.pprint(locals())
