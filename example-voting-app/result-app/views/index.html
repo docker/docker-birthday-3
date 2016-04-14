@@ -7,40 +7,18 @@
     <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
     <meta name="author" content="Mano Marks, Kulin Choksi">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
   </head>
   <body ng-controller="statsCtrl">
-    <div id="voteChart">
-      <chart value="voteChart"></chart>
+    <div style="padding-top: 5%; padding-left: 35%;">
+      <!-- <chart type="Pie" value="voteChart" id="voteChart"></chart> -->
+      <canvas id="voteChart" width="400" height="400"></canvas>
+      <div id="voteChartLegend"></div>
     </div>
-     <!-- <div id="background-stats">
-       <div id="background-stats-1">
-       </div>
-       <div id="background-stats-2">
-      </div>
-    </div>
-    <div id="content-container">
-      <div id="content-container-center">
-        <div id="choice">
-          <div class="choice one">
-            <div class="label">One</div>
-            <div class="stat">{{aPercent | number:1}}%</div>
-          </div>
-          <div class="divider"></div>
-          <div class="choice two">
-            <div class="label">Two</div>
-            <div class="stat">{{bPercent | number:1}}%</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="result" ng-if="total > 100">
-      {{total}} votes
-    </div> -->
     <script src="socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
-    <script src="chartjs-directive.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
+    <!-- <script src="chartjs-directive.js"></script> -->
     <script src="app.js"></script>
   </body>
 </html>
