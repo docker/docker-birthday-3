@@ -85,10 +85,20 @@ app.controller('statsCtrl', function($scope,$http) {
                   }
               ]; */
 
-    var options = Chart.defaults.Pie;
-
-    var votePieChart = new Chart(ctx).Pie(data, options);
-    var voteChartLegend = votePieChart.generateLegend();
+    var options = Chart.defaults.Doughnut;
+    
+    // A legend template
+    options.legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\">\
+                              <% for (var i=0; i<segments.length; i++){%>\
+                                <li style=\"color:<%=segments[i].fillColor%>\">\
+                                  <span style=\"background-color:<%=segments[i].fillColor%>\"></span>\
+                                  <%if(segments[i].label){%><%=segments[i].label%>: <%=segments[i].value%><%}%>\
+                                </li>\
+                              <%}%></ul>";
+    options.animateScale = true;
+    
+    var voteDoughnutChart = new Chart(ctx).Doughnut(data, options);
+    var voteChartLegend = voteDoughnutChart.generateLegend();
     document.getElementById("voteChartLegend").innerHTML = voteChartLegend;
     // console.log(myNewChart);
 

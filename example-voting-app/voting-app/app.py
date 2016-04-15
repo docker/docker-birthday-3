@@ -12,7 +12,16 @@ import json
 option_a = os.getenv('OPTION_A', "JavaScript")
 option_b = os.getenv('OPTION_B', "PHP")
 
-programming_languages = {'cplusplus': 'C++', 'dotnet': '.NET', 'php': 'PHP', 'javascript': 'JavaScript', 'java': 'Java', 'pyhton': 'Python', 'perl': 'Perl'}
+programming_languages = {
+                            'cplusplus': 'C++',
+                            'dotnet': '.NET',
+                            'php': 'PHP',
+                            'javascript': 'JavaScript',
+                            'java': 'Java',
+                            'pyhton': 'Python',
+                            'perl': 'Perl',
+                            'go': 'Go'
+                        }
 
 hostname = socket.gethostname()
 

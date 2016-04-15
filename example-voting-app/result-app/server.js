@@ -16,10 +16,13 @@ var port = process.env.PORT || 4000;
 io.sockets.on('connection', function (socket) {
 
   socket.emit('message', { text : 'Welcome!' });
-  
+
+  // send latest score to new client
+  socket.emit("scores", scores);
+  // scores = ""; // send score to all if new client subscribes
+
   socket.on('subscribe', function (data) {
-    socket.join(data.channel);
-    scores = ""; // send score to all if new client subscribes
+    socket.join(data.channel);  
   });
 });
 

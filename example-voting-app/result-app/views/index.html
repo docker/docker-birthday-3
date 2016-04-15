@@ -7,14 +7,16 @@
     <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
     <meta name="author" content="Mano Marks, Kulin Choksi">
-    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body ng-controller="statsCtrl">
-    <div style="padding-top: 5%; padding-left: 35%;">
-      <!-- <chart type="Pie" value="voteChart" id="voteChart"></chart> -->
-      <canvas id="voteChart" width="400" height="400"></canvas>
+    <center id="center">
       <div id="voteChartLegend"></div>
-    </div>
+      <div id="voteChartContainer">
+        <!-- <chart type="Pie" value="voteChart" id="voteChart"></chart> -->
+        <canvas id="voteChart" width="400" height="400"></canvas>
+      </div>
+    </center>
     <script src="socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
