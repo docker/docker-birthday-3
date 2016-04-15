@@ -19,7 +19,7 @@ io.sockets.on('connection', function (socket) {
 
   // send latest score to new client
   socket.emit("scores", scores);
-  // scores = ""; // send score to all if new client subscribes
+  console.log("Emitting latest score to newly connected client...");
 
   socket.on('subscribe', function (data) {
     socket.join(data.channel);  
@@ -77,7 +77,6 @@ function getVotes(client) {
       }, {});
       
       var newScrore = JSON.stringify(data);
-      // console.log("scores: " + scores, "newScrore: " + newScrore);
       if (scores != newScrore) {
         scores = newScrore;
         console.log("Emitting new score to all clients...");

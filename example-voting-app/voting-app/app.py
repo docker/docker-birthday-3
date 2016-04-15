@@ -9,9 +9,6 @@ import random
 import json
 # import pprint
 
-option_a = os.getenv('OPTION_A', "JavaScript")
-option_b = os.getenv('OPTION_B', "PHP")
-
 programming_languages = {
                             'cplusplus': 'C++',
                             'dotnet': '.NET',
@@ -65,8 +62,8 @@ def generate_random_votes():
     random_votes = []
     
     while (total_votes_to_generate):
-        # identify randomly generated voter id as multiplier of 1000
-        voter_id = '#' + hex(random.getrandbits(64))[2:-1] # prepend with # to distinct as auto generated voter ids
+        # prepend with # to distinct as auto generated voter ids
+        voter_id = '#' + hex(random.getrandbits(64))[2:-1]
         voteKey = random.choice(programming_languages.keys())
         vote = programming_languages[voteKey]
 
