@@ -13,10 +13,6 @@ body{
   transition: all 1s linear;
 }
 
-#center {
-  padding-top: 5%;
-}
-
 #voteChartLegend {
   float: left;
   margin-left: 10%;

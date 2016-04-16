@@ -39,7 +39,7 @@ app.controller('statsCtrl', function($scope,$http) {
                                 </li>\
                               <%}%></ul>";
 
-    options.animateScale = true;
+    // options.animateScale = true;
     
     var voteDoughnutChart = new Chart(ctx).Doughnut(data, options);
     var voteChartLegend = voteDoughnutChart.generateLegend();
