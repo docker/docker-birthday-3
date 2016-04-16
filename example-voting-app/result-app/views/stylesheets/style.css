@@ -25,11 +25,13 @@ body{
 }
 
 #background-stats-1{
-  background-color: #2196f3;
+  background-color: #0000e6;
+  /*background-color: #2196f3;*/
 }
 
 #background-stats-2{
-  background-color: #00cbca;
+  background-color: #ffa31a;
+  /*background-color: #00cbca;*/
 }
 
 #content-container{
