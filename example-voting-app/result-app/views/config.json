@@ -1,7 +1,10 @@
 {
-  "name":"Gordon",
-  "twitter":"@docker",
+  "name":"Stanley Ng",
+  "twitter":"@stanleyhlng",
   "location":"San Francisco, CA, USA",
-  "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
-  "vote":"Cat"
+  "repo":[
+    "stanleyhlng/votingapp_voting-app",
+    "stanleyhlng/votingapp_result-app"
+  ],
+  "vote":"JavaScript"
 }
