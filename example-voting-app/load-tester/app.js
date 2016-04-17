@@ -53,6 +53,7 @@ function post_vote(cb) {
     function(err, res, body) {
       if(err) {
         console.error(err);
+        return cb();
       }
       var ticksEnd = new Date().getTime();
 
