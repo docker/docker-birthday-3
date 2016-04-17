@@ -1,22 +1,62 @@
 version: "2"
 
 services:
+  interlock:
+    image: ehazlett/interlock:1.1.0
+    command: -D run
+    tty: true
+    ports: ["5000"]
+    environment:
+        INTERLOCK_CONFIG: |
+            ListenAddr = ":5000"
+            DockerURL = "unix:///var/run/docker.sock"
+            TLSCACert = "/var/lib/boot2docker/ca.pem"
+            TLSCert = "/var/lib/boot2docker/cert.pem"
+            TLSKey = "/var/lib/boot2docker/key.pem"
+            
+            [[Extensions]]
+            Name = "nginx"
+            ConfigPath = "/etc/nginx/nginx.conf"
+            PidPath = "/etc/nginx/nginx.pid"
+            BackendOverrideAddress = "172.17.0.1"
+            MaxConn = 1024
+            Port = 80
+    volumes:
+        - /Users/titan/.docker/machine/certs:/var/lib/boot2docker:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - interlock-tier
+
+  nginx:
+    image: nginx:latest
+    entrypoint: nginx
+    command: -g "daemon off;" -c /etc/nginx/nginx.conf
+    ports:
+        - 80:80
+    labels:
+        - "interlock.ext.name=nginx"
+    networks:
+      - interlock-tier
+
   voting-app:
     build: ./voting-app/.
     volumes:
      - ./voting-app:/app
-    ports:
-      - "5000:80"
+    ports: 
+     - "5000"
     networks:
       - front-tier
       - back-tier
+    labels:
+        - "interlock.hostname=test"
+        - "interlock.domain=local"
 
   result-app:
     build: ./result-app/.
     volumes:
       - ./result-app:/app
-    ports:
-      - "5001:80"
+    ports: 
+      - "5001"
     networks:
       - front-tier
       - back-tier
@@ -47,3 +87,4 @@ volumes:
 networks:
   front-tier:
   back-tier:
+  interlock-tier:
