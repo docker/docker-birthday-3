@@ -1,16 +1,23 @@
 
-Building image:
+### Building image:
+
 ```
 docker build -t voting-load-tester .
 ```
 
-Running image:
+### Running image:
+
+Environmental variables:
+
+* MAX_CALLS - how many requests to attempt
+* MAX_CONCURRENT - how many calls to initiate at once
+* VOTE - either JavaScript or Python. 
 
 ```
-docker run -e VOTING_URL=http://192.168.99.100:5000 -e MAX_CALLS=2000 -e MAX_CONCURRENT=1 voting-load-tester
+docker run -e VOTING_URL=http://192.168.99.100:5000 -e MAX_CALLS=2000 -e MAX_CONCURRENT=1 -e VOTE=JavaScript voting-load-tester
 ```
 
-Example test-run
+### Example test-run
 
 ```
 alex@ MINGW64 ~/Desktop/docker-birthday-3/example-voting-app/load-tester (master)

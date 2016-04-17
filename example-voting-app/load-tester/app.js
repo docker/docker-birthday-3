@@ -12,11 +12,13 @@ var totalRequests = 0;
 var maxConcurent;
 var url;
 var maxCalls;
+var voteOption;
 
 function main () {
   maxConcurent = process.env.MAX_CONCURRENT || 10;
   url = process.env.VOTING_URL;
   maxCalls = process.env.MAX_CALLS || 10;
+  voteOption = process.env.VOTE || "Python";
 
   if(!url) {
     console.log("Give VOTING_URL. MAX_CALLS and MAX_CONCURRENT are optional.")
@@ -32,7 +34,6 @@ function main () {
   for(var i =0;i< maxCalls;i++) {
     q.push({id: i});
   }
-
 }
 
 function tally() {
@@ -48,7 +49,7 @@ function tally() {
 function post_vote(cb) {
   var ticksStart = new Date().getTime();
   totalRequests=totalRequests+1;
-  request.post(url, {form: {"vote":"JavaScript"}},
+  request.post(url, {form: {"vote": voteOption}},
     function(err, res, body) {
       if(err) {
         console.error(err);
