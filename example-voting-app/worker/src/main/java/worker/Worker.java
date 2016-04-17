@@ -21,6 +21,8 @@ class Worker {
 
         System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
         updateVote(dbConn, voterID, vote);
+
+        redis.publish("voting", "db.updated");
       }
     } catch (SQLException e) {
       e.printStackTrace();

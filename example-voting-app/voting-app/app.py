@@ -14,24 +14,21 @@ option_b = os.getenv('OPTION_B', "JavaScript")
 hostname = socket.gethostname()
 
 redis = connect_to_redis("redis")
-redisPub = connect_to_redis("redis")
 
 app = Flask(__name__)
 
 @app.route("/", methods=['POST','GET'])
 def hello():
-    #voter_id = request.cookies.get('voter_id')
-    #if not voter_id:
-    voter_id = hex(random.getrandbits(64))[2:-1]
-    vote = None
+    voter_id = request.cookies.get('voter_id')
+    if not voter_id:
+        voter_id = hex(random.getrandbits(64))[2:-1]
+        vote = None
 
     if request.method == 'POST':
         print("Redis rpush")
         vote = request.form['vote']
         data = json.dumps({'voter_id': voter_id, 'vote': vote})
         redis.rpush('votes', data)
-        app.logger.info("Publishing vote to channel")
-        redisPub.publish("voting", "refresh")
 
     resp = make_response(render_template(
         'index.html',
@@ -40,8 +37,8 @@ def hello():
         hostname=hostname,
         vote=vote,
     ))
-    #resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0';
-    #resp.set_cookie('voter_id', voter_id)
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0';
+    resp.set_cookie('voter_id', voter_id)
     return resp
 
 

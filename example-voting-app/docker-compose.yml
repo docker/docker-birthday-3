@@ -3,8 +3,8 @@ version: "2"
 services:
   voting-app:
     build: ./voting-app/.
-    volumes:
-     - ./voting-app:/app
+    # volumes:
+    #  - ./voting-app:/app
     ports:
       - "5000:80"
     networks:
@@ -22,7 +22,8 @@ services:
       - back-tier
 
   worker:
-    image: manomarks/worker
+    # image: manomarks/worker
+    build: ./worker/
     networks:
       - back-tier
 
