@@ -37,16 +37,17 @@ button.b{
 
 #tip{
   text-align: left;
-  color: #c0c9ce;
+  color: #8f9ea8;
   font-size: 14px;
 }
 
 #hostname{
-  position: absolute;
+  /* position: absolute;
   bottom: 100px;
   right: 0;
-  left: 0;
-  color: #8f9ea8;
+  left: 0; */
+  padding: 10px;  
+  color: #c0c9ce;
   font-size: 14px;
 }
 
