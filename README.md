@@ -1,3 +1,15 @@
+I've made following hacks:
+- Maintain list of programming languages to be votes in python app (http://localhost:5000/)
+
+- Randomly generate votes, can specify how many random votes you want to generate (http://localhost:5000/generate-random-votes?count=1000)
+-- By default it will generate 100 random votes and each random voter id is prefixed with "#"
+
+- Watch live voting result with Pie chart (http://localhost:5001/)
+-- NodeJs server is improved to send score only when found change from last database polling
+-- If new client is connected to NodeJs server then it will send score to that client only instead of broadcasting
+
+Following is a copy of original README from where this project was cloned:
+
 # Docker Birthday #3 :tada: :birthday: :tada:
 
 > Birthday App Project
