@@ -103,6 +103,7 @@ function getVotes() {
         obj[row.vote] = row.count;
         return obj;
       }, {});
+      // console.log(data);
       io.sockets.emit("scores", JSON.stringify(data));
     }
 

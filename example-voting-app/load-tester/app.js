@@ -20,6 +20,12 @@ function main () {
   maxCalls = process.env.MAX_CALLS || 10;
   voteOption = process.env.VOTE || "Python";
 
+  if(voteOption == "Python") {
+    voteOption = "b";
+  } else {
+    voteOption = "a";
+  }
+
   if(!url) {
     console.log("Give VOTING_URL. MAX_CALLS and MAX_CONCURRENT are optional.")
   }
