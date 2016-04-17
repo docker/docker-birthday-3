@@ -66,14 +66,6 @@ function post_vote(cb) {
     });
 }
 
-async.until(function() {
-  return totalCalls >= maxCalls;
-}, function(cb) {
-
-}, function() {
-  tally();
-});
-
 process.on('SIGINT', function() {
   tally();
 })

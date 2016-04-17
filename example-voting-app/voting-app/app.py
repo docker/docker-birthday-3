@@ -8,7 +8,7 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "Python 2.7")
+option_a = os.getenv('OPTION_A', "Python")
 option_b = os.getenv('OPTION_B', "JavaScript")
 
 hostname = socket.gethostname()
