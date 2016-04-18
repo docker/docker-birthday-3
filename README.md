@@ -75,7 +75,7 @@ And now you're ready. See you at the birthday party!<a name="challenge"></a>
 
 Once you finish the tutorial, we encourage you to continue hacking on the app!
 
-*All submissions are due by Tuesday, April 15th at 9am PST.*
+*All submissions are due by Monday, April 18th at 9am PST.*
 
 We’re running a challenge for the best hack to improve this app - the best hack wins a very special Docker swag package and complimentary pass to [DockerCon 2016](http://2016.dockercon.com/)! The two runner-ups will receive an awesome Docker hoodie and all of these hacks will be featured in a blog post on [blog.docker.com](https://blog.docker.com/).
 
@@ -87,7 +87,7 @@ For Devs:
 * Rewrite or add features to the following apps:
   * Python webapp which lets you vote between two options
   * Java worker which consumes votes and stores them
-  * Node.js webapp shich shows the results of the voting in real time
+  * Node.js webapp which shows the results of the voting in real time
 * Write something to generate random votes so you can load test the app
 
 For Ops:

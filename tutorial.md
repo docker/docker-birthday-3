@@ -836,7 +836,7 @@ For Devs:
 * Rewrite or add features to the following apps:
   * Python webapp which lets you vote between two options
   * Java worker which consumes votes and stores them
-  * Node.js webapp shich shows the results of the voting in real time
+  * Node.js webapp which shows the results of the voting in real time
 * Write something to generate random votes so you can load test the app
 
 For Ops:
@@ -845,7 +845,7 @@ For Ops:
 * Add Interlock: [github.com/ehazlett/interlock](https://github.com/ehazlett/interlock)
 * Scale out the worker nodes using Docker Cloud
 
-In order to qualify for the prizes, you must follow these steps by Tuesday, April 15th at 9am PST:
+In order to qualify for the prizes, you must follow these steps by Monday, April 18th at 9am PST:
 
 1. Submit your entry at [bit.ly/1TLpxuK](https://docs.google.com/forms/d/1TKCYetzv8IZh09E9uT0bDL3JpS_ZHJw3duh9XUaAPhQ/viewform)
 2. Submit your PR at [github.com/docker/docker-birthday-3](https://github.com/docker/docker-birthday-3)
