@@ -1,6 +1,5 @@
 # our base image
 FROM alpine:latest
-COPY repositories.txt /etc/apk/repositories
 
 # Install python and pip
 RUN apk add --update py-pip

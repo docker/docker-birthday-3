@@ -1,2 +1,0 @@
-http://dl-4.alpinelinux.org/alpine/v3.3/main
-http://dl-4.alpinelinux.org/alpine/v3.3/community

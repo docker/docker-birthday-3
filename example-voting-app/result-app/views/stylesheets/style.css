@@ -59,10 +59,11 @@ body{
   background:#fff;
   box-shadow: 10px 0 0 #fff, -10px 0 0 #fff;
   vertical-align:middle;
-  font-size:40px;
+  font-size:20px;
   font-weight: 600;
   height: 50px;
 }
+
 #choice a{
   text-decoration:none;
 }
@@ -107,4 +108,13 @@ canvas {
   margin-right: auto;
   display: block;
   width: 800px;
+}
+.choice > div {
+  text-align:center
+}
+
+@media screen and (min-width: 480px) {
+  #choice {
+    font-size: 40px;
+  }
 }
