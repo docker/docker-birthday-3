@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -37,11 +36,10 @@ public class Worker {
     try {
 
       System.err.println("Watching vote queue");
-      String voteJSON = this.redisTemplate.execute(new RedisCallback<String>() {
-        public String doInRedis(RedisConnection connection) throws DataAccessException {
+      String voteJSON = this.redisTemplate.execute((RedisCallback<String>)(connection) -> {
           StringRedisConnection stringRedisConn = (StringRedisConnection)connection;
           return stringRedisConn.bLPop(0, "votes").get(1);
-        }});
+        });
       JSONObject voteData = new JSONObject(voteJSON);
       String voterID = voteData.getString("voter_id");
       String vote = voteData.getString("vote");
