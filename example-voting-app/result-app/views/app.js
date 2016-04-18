@@ -42,7 +42,7 @@ function initMap() {
   ];
 
   var mcOptions = {
-    gridSize: 50,
+    gridSize: 60,
     styles: clusterStyles,
     maxZoom: 10
   };
@@ -127,7 +127,7 @@ function createMarker(width, height, option) {
 }
 
 function addMarkerWithTimeout(vote, timeout) {
-  window.setTimeout(function() {
+  //window.setTimeout(function() {
     var position = {lat:vote.loc.x, lng:vote.loc.y};
     var marker = new google.maps.Marker({
       position: position,
@@ -137,7 +137,7 @@ function addMarkerWithTimeout(vote, timeout) {
     marker.vote = vote.vote;
     markers.push(marker);
     markerCluster.addMarker(marker);
-  }, timeout);
+  //}, timeout);
 }
 
 function clearMarkers() {
