@@ -1,5 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,600);
-
+/*Change*/
 *{
   box-sizing:border-box;
 }
@@ -126,4 +126,14 @@ button.b{
   margin-bottom:-4px;
   width:50%;
   height:100%;
+}
+
+#username{
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+  font-size: 22px;
+  font-weight: 700;
+  width: 330px;
 }
