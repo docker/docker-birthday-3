@@ -1,15 +1,38 @@
 version: "2"
 
 services:
+  lb:
+    image: dockercloud/haproxy
+    depends_on:
+      - voting-app
+    ports:
+      - "80:80"
+      - "1936:1936"
+    links:
+      - voting-app
+    environment:
+      - DOCKER_TLS_VERIFY
+      - DOCKER_HOST
+      - DOCKER_CERT_PATH
+    volumes:
+      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+
+  lt:
+    build: ./load-testing/.
+    volumes:
+      - ./load-testing:/app
+    ports:
+      - "8089:8089"
+
   voting-app:
     build: ./voting-app/.
     volumes:
-     - ./voting-app:/app
+      - ./voting-app:/app
     ports:
-      - "5000:80"
-    networks:
-      - front-tier
-      - back-tier
+      - "80"
+    links:
+      - redis
+      - result-app
 
   result-app:
     build: ./result-app/.
@@ -17,33 +40,26 @@ services:
       - ./result-app:/app
     ports:
       - "5001:80"
-    networks:
-      - front-tier
-      - back-tier
+    links:
+      - db
 
   worker:
     image: manomarks/worker
-    networks:
-      - back-tier
+    links:
+      - db
 
   redis:
     image: redis:alpine
     container_name: redis
     ports: ["6379"]
-    networks:
-      - back-tier
+    links:
+      - worker
 
   db:
     image: postgres:9.4
     container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
-    networks:
-      - back-tier
 
 volumes:
   db-data:
-
-networks:
-  front-tier:
-  back-tier:
