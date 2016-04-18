@@ -41,13 +41,14 @@ Participants in the training will go through the steps involved in running and d
 - **A Java worker**: which consumes votes and stores them in…
 - …**A Postgres database**: backed by a Docker volume
 - **A Node.js webapp**: which shows the results of the voting in real time
+- **A swarm cluster install script**: which supports logging to an ELK stack
 
 There will be a self-paced beginners’ tutorial for attendees to learn Docker basics as they build and deploy this app locally. Experienced Docker users will serve as mentors to help beginners successfully complete the training.
 
 ### Pre-tutorial preparation
 At the training, you will need to bring your own computer. Before you go to a birthday party training, there are some steps you should do some preparation to get your work environment ready. Here are the steps:
 
-1. For Linux users, we need you to install [Docker engine] (https://docs.docker.com/engine/installation/) and [Docker compose] (https://docs.docker.com/compose/install/). Make sure you have Docker compose version 1.6 or higher by executing 
+1. For Linux users, we need you to install [Docker engine] (https://docs.docker.com/engine/installation/) and [Docker compose] (https://docs.docker.com/compose/install/). Make sure you have Docker compose version 1.6 or higher by executing
 
    ```docker-compose version```
 
@@ -100,4 +101,3 @@ In order to qualify for the prizes, you must follow these steps by Monday, April
 
 1. Submit your entry at [bit.ly/1TLpxuK](https://docs.google.com/forms/d/1TKCYetzv8IZh09E9uT0bDL3JpS_ZHJw3duh9XUaAPhQ/viewform)
 2. Submit your PR at [github.com/docker/docker-birthday-3](https://github.com/docker/docker-birthday-3)
-

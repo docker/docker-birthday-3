@@ -1,0 +1,98 @@
+version: "2"
+
+services:
+# Our app
+# Remember to do an export IP_OVERLORD=$(docker-machine ip overlord) becore launching this compose file
+  voting-app:
+    image: lalu/votingapp_voting-app
+    environment:
+      - "constraint:type==node"
+    networks:
+      - front-tier
+      - back-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://$IP_OVERLORD:5000"
+        syslog-tag: "voting-app"
+
+  result-app:
+    image: lalu/votingapp_result-app
+    ports:
+      - "5001:80"
+    environment:
+      - "constraint:type==node"
+    networks:
+      - front-tier
+      - back-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://$IP_OVERLORD:5000"
+        syslog-tag: "result-app"
+
+  worker:
+    image: manomarks/worker
+    container_name: worker
+    environment:
+      - "constraint:type==node"
+    networks:
+      - back-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://$IP_OVERLORD:5000"
+        syslog-tag: "worker"
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    # ports:
+    #   - "6379"
+    environment:
+      - "constraint:type==node"
+    networks:
+      - back-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://$IP_OVERLORD:5000"
+        syslog-tag: "redis"
+
+  db:
+    image: postgres:9.4
+    container_name: db
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    environment:
+      - "constraint:type==node"
+    networks:
+      - back-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://$IP_OVERLORD:5000"
+        syslog-tag: "db"
+
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - voting-app
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - front-tier
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://$IP_OVERLORD:5000"
+        syslog-tag: "lb"
+
+volumes:
+  db-data:
+
+networks:
+  front-tier:
+  back-tier:
