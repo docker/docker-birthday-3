@@ -6,12 +6,83 @@ var bg2 = document.getElementById('background-stats-2');
 
 var markers = [];
 var map;
+var markerCluster;
+
+window.onload = function() {
+  initMap();
+};
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: {lat: 37.780, lng: -122.394}
+    zoom: 2,
+    center: {lat: 37.780, lng: -122.394},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   });
+
+  var clusterStyles = [
+    {
+      textColor: 'black',
+      url: 'stylesheets/a.png',
+      height: 50,
+      width: 50
+    },
+   {
+      textColor: 'black',
+      url: 'stylesheets/b.png',
+      height: 50,
+      width: 50
+    },
+   {
+      textColor: 'black',
+      url: 'stylesheets/ab.png',
+      height: 50,
+      width: 50,
+      textSize: 10
+    }
+  ];
+
+  var mcOptions = {
+    gridSize: 50,
+    styles: clusterStyles,
+    maxZoom: 10
+  };
+
+  markerCluster = new MarkerClusterer(map, markers, mcOptions);
+  markerCluster.setCalculator(computeCluster);
+}
+
+function computeCluster(markers) {
+  var a = 0;
+  var b = 0;
+  for (var i = 0;i < markers.length; i++) {
+    if ( markers[i].vote === "a" )
+      a++;
+    else
+      b++;
+  }
+
+  var percentA = a/(a+b)*100;
+  var percentB = 100-percentA;
+
+  percentA = percentA.toFixed(0);
+  percentB = percentB.toFixed(0);
+
+  // different index for different icons showed on cluster maker.
+  var text = '50/50';
+  var index = 3;
+  if ( percentA > percentB ) {
+    index = 1;
+    text = percentA+"%";
+  }
+  if ( percentB > percentA ) {
+    index = 2;
+    text = percentB+"%";
+  }
+  return {
+    text: text,
+    title: "One:"+percentA+"%\n"+"Two:"+percentB+"%",
+    index: index
+  };
 }
 
 function createMarker(width, height, option) {
@@ -58,12 +129,14 @@ function createMarker(width, height, option) {
 function addMarkerWithTimeout(vote, timeout) {
   window.setTimeout(function() {
     var position = {lat:vote.loc.x, lng:vote.loc.y};
-    markers.push(new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: position,
-      map: map,
       animation: google.maps.Animation.DROP,
-      icon: createMarker(2*map.getZoom(), 2*map.getZoom(), vote.vote)
-    }));
+      icon: createMarker(10, 10, vote.vote)
+    });
+    marker.vote = vote.vote;
+    markers.push(marker);
+    markerCluster.addMarker(marker);
   }, timeout);
 }
 
@@ -107,10 +180,6 @@ app.controller('statsCtrl', function($scope,$http){
         for (var i=0; i < votes.length; i++) {
           addMarkerWithTimeout(votes[i], i);
           $scope.votes.push(votes[i]);
-        }
-        if ( votes.length > 0) {
-          var center = new google.maps.LatLng(votes[votes.length-1].loc.x, votes[votes.length-1].loc.y);
-          map.setCenter(center, 4);
         }
       }, function errorCallback(response) {
         console.log(response);
