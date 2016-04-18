@@ -12,6 +12,9 @@ var express = require('express'),
 io.set('transports', ['polling']);
 
 var port = process.env.PORT || 4000;
+var option_a = process.env.OPTION_A || "Python";
+var option_b = process.env.OPTION_B || "Javascript";
+var options = {"option_a": option_a, "option_b": option_b};
 
 io.sockets.on('connection', function (socket) {
 
@@ -20,6 +23,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('subscribe', function (data) {
     socket.join(data.channel);
   });
+
 });
 
 var query = require('./views/config.json');
@@ -70,7 +74,8 @@ function getVotes(client) {
         obj[row.vote] = row.count;
         return obj;
       }, {});
-      io.sockets.emit("scores", JSON.stringify(data));
+     io.sockets.emit('options', JSON.stringify(options));
+     io.sockets.emit("scores", JSON.stringify(data));
     }
 
     setTimeout(function() {getVotes(client) }, 1000);

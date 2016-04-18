@@ -10,6 +10,8 @@ services:
     networks:
       - front-tier
       - back-tier
+    depends_on:
+      - redis
 
   result-app:
     build: ./result-app/.
@@ -20,11 +22,25 @@ services:
     networks:
       - front-tier
       - back-tier
+    depends_on:
+      - db
+
+  vote-generator:
+    build: ./vote-generator/.
+    volumes:
+      - ./vote-generator:/app
+    networks:
+      - back-tier
+    depends_on:
+      - redis
 
   worker:
     image: manomarks/worker
     networks:
       - back-tier
+    depends_on:
+      - redis
+      - db
 
   redis:
     image: redis:alpine
