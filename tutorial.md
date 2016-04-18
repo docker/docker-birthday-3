@@ -195,7 +195,7 @@ Great! So you have now looked at `docker run`, played with a docker container an
 
 <a id="static-site"></a>
 ### 2.1 Static Sites
-Let's start by taking baby-steps. The first thing we're going to look at is how you can run a dead-simple static website. You're going to pull a docker image from the docker hub, run the container and see how easy it so to set up a webserver.
+Let's start by taking baby-steps. The first thing we're going to look at is how you can run a dead-simple static website. You're going to pull a docker image from the Docker Hub, run the container and see how easy it so to set up a webserver.
 
 The image that you are going to use is a single-page website that was already created for this demo and is available on the Docker Hub as [`seqvence/static-site`](https://hub.docker.com/r/seqvence/static-site/). You can download and run the image directly in one go using `docker run`.
 
@@ -307,7 +307,7 @@ So for example, the `docker pull` command given below will pull an image named `
 $ docker pull ubuntu
 ```
 
-To get a new Docker image you can either get it from a registry (such as the docker hub) or create your own. There are tens of thousands of images available on [Docker hub](https://hub.docker.com). You can also search for images directly from the command line using `docker search`.
+To get a new Docker image you can either get it from a registry (such as the Docker Hub) or create your own. There are tens of thousands of images available on [Docker Hub](https://hub.docker.com). You can also search for images directly from the command line using `docker search`.
 
 An important distinction to be aware of when it comes to images is between base and child images.
 
@@ -325,12 +325,12 @@ Then there are two more types of images that can be both base and child images, 
 ### 2.3 Our First Image
 
 Now that you have a better understanding of images, it's time to create our own. Our goal in this section will be to create an image that sandboxes a small [Flask](http://flask.pocoo.org) application.
-For the purposes of this workshop, we'll created a fun little Python Flask app that displays a random cat `.gif` every time it is loaded - because you know, who doesn't like cats?
+For the purposes of this workshop, we'll create a fun little Python Flask app that displays a random cat `.gif` every time it is loaded - because you know, who doesn't like cats?
 
 <a id="dockerfiles"></a>
 ### 2.4 Dockerfile
 
-A [Dockerfile](https://docs.docker.com/engine/reference/builder/) is a text-file that contains a list of commands that the Docker daemon calls while creating an image. It is simple way to automate the image creation process. The best part is that the [commands](https://docs.docker.com/engine/reference/builder/) you write in a Dockerfile are *almost* identical to their equivalent Linux commands. This means you don't really have to learn new syntax to create your own Dockerfiles.
+A [Dockerfile](https://docs.docker.com/engine/reference/builder/) is a text-file that contains a list of commands that the Docker daemon calls while creating an image. It is a simple way to automate the image creation process. The best part is that the [commands](https://docs.docker.com/engine/reference/builder/) you write in a Dockerfile are *almost* identical to their equivalent Linux commands. This means you don't really have to learn new syntax to create your own Dockerfiles.
 
 **The goal of this exercise is to create a Docker image which will run a Flask app.**
 
@@ -417,7 +417,7 @@ Create a directory called `templates` and create a **index.html** file in that d
 The next step now is to create a Docker image with this web app. As mentioned above, all user images are based off a base image. Since our application is written in Python, we will build our own Python image based on [Alpine](https://hub.docker.com/_/alpine/). We'll do that using a **Dockerfile**.
 
 Create a file **Dockerfile**.
-Start by specifying our base image. Use the `FROM` keyword to do that
+Start by specifying our base image. Use the `FROM` keyword to do that:
 
 ```
 FROM alpine:latest
@@ -439,7 +439,7 @@ COPY requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 ```
 
-Copy the files you have created earlier our image by using [COPY](https://docs.docker.com/engine/reference/builder/#copy)  command.
+Copy the files you created earlier to our image by using the [COPY](https://docs.docker.com/engine/reference/builder/#copy)  command.
 
 ```
 COPY app.py /usr/src/app/
@@ -483,7 +483,7 @@ CMD ["python", "/usr/src/app/app.py"]
 
 Now that you finally have your `Dockerfile`, you can now build your image. The `docker build` command does the heavy-lifting of creating a docker image from a `Dockerfile`.
 
-While running the `docker build` command given below, make sure to replace `<YOUR_USERNAME>`  with your username. This username should be the same on you created when you registered on [Docker hub](https://hub.docker.com). If you haven't done that yet, please go ahead and create an account. The `docker build` command is quite simple - it takes an optional tag name with `-t` and a location of the directory containing the `Dockerfile` - the `.` indicates the current directory:
+While running the `docker build` command given below, make sure to replace `<YOUR_USERNAME>`  with your username. This username should be the same one you created when you registered on [Docker Hub](https://hub.docker.com). If you haven't done that yet, please go ahead and create an account. The `docker build` command is quite simple - it takes an optional tag name with `-t` and the location of the directory containing the `Dockerfile` - the `.` indicates the current directory:
 
 ```
 $ docker build -t <YOUR_USERNAME>/myfirstapp .
@@ -581,7 +581,7 @@ $ docker rm myfirstapp
 This portion of the tutorial will guide you through the creation and customization of a voting app. It's important that you follow the steps in order, and make sure to customize the portions that are customizable.
 
 **Important.**
-To complete the submission, you will need to have Docker and Docker Compose installed on your machine as mentioned in the [Prerequisites](#prerequisites) and [Setup](#setup) sections. You'll also need to have a [Docker Id](https://hub.docker.com/register/). Once you do run login from the commandline:
+To complete the submission, you will need to have Docker and Docker Compose installed on your machine as mentioned in the [Prerequisites](#prerequisites) and [Setup](#setup) sections. You'll also need to have a [Docker Id](https://hub.docker.com/register/). Once you do run login from the command line:
 
 ```
 $ docker login
@@ -729,6 +729,8 @@ To launch your app navigate to the example-voting-app directory and run the foll
 $ docker-compose up -d
 ```
 
+> Note: If you encounter an error from Compose, you may need to upgrade. Your version of Compose needs to be 1.6 or higher. You can check your version of Compose by running `docker-compose --version`. If it's under 1.6, there are instructions on upgrading [here](https://docs.docker.com/compose/install/). 
+
 This tells Compose to start all the containers specified in the `docker-compose.yml` file. The `-d` tells it to run them in daemon mode, in the background.
 
 Last you'll need to figure out the ip address of your Docker host. If you're running Linux, it's just localhost, or 127.0.0.1. If you're using Docker Machine on Mac or Windows, you'll need to run:
@@ -752,7 +754,7 @@ $ ssh -L 5000:localhost:5000 <ssh-user>@<CLOUD_INSTANCE_IP_ADDRESS>
 <a id="buildandtag"></a>
 #### 3.2.4 Build and tag images
 
-You are all set now. Navigate to each of the directories where you have a Dockerfile to build and tag your images that you want to submit.
+You are all set now. Navigate to each of the directories where you have a Dockerfile to build and tag the images that you want to submit.
 
 In order to build the images, make sure to replace `<YOUR_DOCKER_ID>` with your *Docker Hub username* in the following commands:
 
@@ -766,7 +768,7 @@ $ docker build --no-cache -t <YOUR_DOCKER_ID>/votingapp_result-app .
 <a id="pushimages"></a>
 #### 3.2.5 Push images to Docker Hub
 
-Push the images to Docker hub. Remember, you must have run `docker login` before you can push.
+Push the images to Docker Hub. Remember, you must have run `docker login` before you can push.
 
 ```
 $ docker push <YOUR_DOCKER_ID>/votingapp_voting-app
@@ -778,7 +780,7 @@ $ docker push <YOUR_DOCKER_ID>/votingapp_result-app
 <a id="confirmtraining"></a>
 ### 3.3 Confirm your completion
 
-Once you're completed steps 3.1 through 3.2.5 you can submit your application. It's very easy to do so.
+Once you've completed steps 3.1 through 3.2.5 you can submit your application. It's very easy to do so.
 
 Get the *ID* of the running container running from image *examplevotingapp_result-app*:
 
