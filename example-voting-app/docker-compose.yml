@@ -22,7 +22,7 @@ services:
       - back-tier
 
   worker:
-    build: ./worker/.
+    image: eddumelendez/worker
     networks:
       - back-tier
 
