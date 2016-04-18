@@ -22,7 +22,7 @@ services:
       - back-tier
 
   worker:
-    image: manomarks/worker
+    build: ./worker
     networks:
       - back-tier
 
