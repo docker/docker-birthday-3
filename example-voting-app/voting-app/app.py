@@ -29,7 +29,6 @@ def hello():
         vote = request.form['vote']
         location = json.loads(request.form['location'])
         data = json.dumps({'voter_id': voter_id, 'vote': vote, 'location': location})
-        app.logger.error(data)
         redis.rpush('votes', data)
 
     resp = make_response(render_template(
