@@ -59,3 +59,19 @@ Once ELK is up you can now start the birthday with the alternate compose file an
     $ docker-compose -f ../../docker-compose-swarm-elk-logging.yml up -d
 
 Navigate to http://$(docker-machine ip overlord):5600 to access kibana and view the app logs. (default l/p: admin/Kibana05)
+
+
+## Scale the voting app
+
+    $ docker-compose -f ../../docker-compose-swarm-elk-logging.yml scale voting-app=2
+
+The excellent dockercloud-haproxy will modify its configuration accordingly:
+
+    $ docker-compose -f docker-compose-swarm-elk-logging.yml exec lb sh -c 'cat /haproxy.cfg'
+
+    ```
+    [...]
+    backend default_service
+    server examplevotingapp_voting-app_1 examplevotingapp_voting-app_1:80 check
+    server examplevotingapp_voting-app_2 examplevotingapp_voting-app_2:80 check
+    ```
