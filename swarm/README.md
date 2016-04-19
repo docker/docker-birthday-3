@@ -27,7 +27,7 @@ Then export those values in your shell:
 
 Create security groups and add the necessary rules in them with the following script:
 
-    $ ./networking.sh
+    $ ./networking.sh <admin-public-ip>
 
 Create a cluster using the script:
 
