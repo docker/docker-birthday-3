@@ -51,7 +51,7 @@ You can check the status of your cluster at any time with:
 
     $ cd elk
     $ eval $(docker-machine env overlord)
-    $ docker-compose up -d
+    $ docker-compose -f docker-compose-ubuntu.yml up -d
 
 Once ELK is up you can now start the birthday with the alternate compose file and have all applications logs sent to the ELK stack on overlord:
 
