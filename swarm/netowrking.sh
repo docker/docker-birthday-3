@@ -26,8 +26,8 @@ cs authorizeSecurityGroupIngress protocol=TCP startPort=8500 endPort=8500 securi
 # from promotheus to swarm for monitoring purposes
 
 # to swarm
-cs authorizeSecurityGroupIngress protocol=TCP startPort=80 endPort=80 securityGroupName=swarm cidrList=0.0.0.0/32
-cs authorizeSecurityGroupIngress protocol=TCP startPort=5000 endPort=5001 securityGroupName=swarm cidrList=0.0.0.0/32
+cs authorizeSecurityGroupIngress protocol=TCP startPort=80 endPort=80 securityGroupName=swarm cidrList=0.0.0.0/0
+cs authorizeSecurityGroupIngress protocol=TCP startPort=5000 endPort=5001 securityGroupName=swarm cidrList=0.0.0.0/0
 
 # admin to overlord > consul
 cs authorizeSecurityGroupIngress protocol=TCP startPort=8500 endPort=8500 securityGroupName=overlord cidrList=$IP/32

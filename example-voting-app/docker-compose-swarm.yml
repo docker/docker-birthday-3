@@ -60,8 +60,6 @@ services:
       - 80:80
     networks:
       - front-tier
-    environment:
-      - "constraint:type==lb"
 
 
 volumes:
