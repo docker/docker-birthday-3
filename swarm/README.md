@@ -75,3 +75,7 @@ The excellent dockercloud-haproxy will modify its configuration accordingly:
     server examplevotingapp_voting-app_1 examplevotingapp_voting-app_1:80 check
     server examplevotingapp_voting-app_2 examplevotingapp_voting-app_2:80 check
     ```
+
+## Service discovery
+
+It is possible to see all services registered in consul by navigating to http://$(docker-machine ip overlord):8500
