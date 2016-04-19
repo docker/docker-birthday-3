@@ -30,6 +30,6 @@ cs authorizeSecurityGroupIngress protocol=TCP startPort=80 endPort=80 securityGr
 cs authorizeSecurityGroupIngress protocol=TCP startPort=5000 endPort=5001 securityGroupName=swarm cidrList=0.0.0.0/32
 
 # admin to overlord > consul
-cs authorizeSecurityGroupIngress protocol=TCP startPort=8500 endPort=8500 securityGroupName=consul cidrList=$IP/32
+cs authorizeSecurityGroupIngress protocol=TCP startPort=8500 endPort=8500 securityGroupName=overlord cidrList=$IP/32
 # admin to overlord > kibana
-cs authorizeSecurityGroupIngress protocol=TCP startPort=5600 endPort=5600 securityGroupName=consul cidrList=$IP/32
+cs authorizeSecurityGroupIngress protocol=TCP startPort=5600 endPort=5600 securityGroupName=overlord cidrList=$IP/32

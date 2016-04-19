@@ -58,4 +58,4 @@ Once ELK is up you can now start the birthday with the alternate compose file an
     $ export IP_OVERLORD=$(docker-machine ip overlord)
     $ docker-compose -f ../../docker-compose-swarm-elk-logging.yml up -d
 
-Navigate to $(docker-machine ip overlord):5600 to access kibana and view the app logs. (default l/p: admin/Kibana05)
+Navigate to http://$(docker-machine ip overlord):5600 to access kibana and view the app logs. (default l/p: admin/Kibana05)
