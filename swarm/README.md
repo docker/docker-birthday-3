@@ -67,7 +67,7 @@ Navigate to http://$(docker-machine ip overlord):5600 to access kibana and view 
 
 The excellent dockercloud-haproxy will modify its configuration accordingly:
 
-    $ docker-compose -f docker-compose-swarm-elk-logging.yml exec lb sh -c 'cat /haproxy.cfg'
+    $ docker-compose -f ../../docker-compose-swarm-elk-logging.yml exec lb sh -c 'cat /haproxy.cfg'
 
     ```
     [...]
