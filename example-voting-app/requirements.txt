@@ -1,0 +1,5 @@
+docker-py==1.8.0
+py2-ipaddress==3.4.1
+requests==2.9.1
+six==1.10.0
+websocket-client==0.37.0
