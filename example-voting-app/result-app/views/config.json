@@ -1,7 +1,7 @@
 {
-  "name":"Gordon",
-  "twitter":"@docker",
-  "location":"San Francisco, CA, USA",
+  "name":"Titan Lien",
+  "twitter":"@titanlien",
+  "location":"Taipei, TW, Taiwan",
   "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
-  "vote":"Cat"
+  "vote":"Left"
 }
