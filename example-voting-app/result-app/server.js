@@ -9,21 +9,47 @@ var express = require('express'),
     io = require('socket.io')(server),
     request = require('request-json');
 
-io.set('transports', ['polling']);
+var redis = require('redis');
+var redisClient = redis.createClient({
+                db: 0,
+                host: "redis",
+                max_attempts: 10
+});
 
+io.set('transports', ['polling']);
 var port = process.env.PORT || 4000;
 
 io.sockets.on('connection', function (socket) {
-
   socket.emit('message', { text : 'Welcome!' });
 
   socket.on('subscribe', function (data) {
     socket.join(data.channel);
   });
 });
+var redisQuit = false;
+redisClient.on('connect', function() {
+  console.log("Redis connected");
+
+  redisClient.subscribe("voting");
+  redisClient.on("message", function(channel, msg) {
+    console.log("Data on voting channel. Calling getVotes.")
+    getVotes();
+  });
+
+});
+redisClient.on('error', function(e) {
+  if(!redisQuit) {
+    console.error(e);
+    redisClient.quit();
+    redisQuit=true;
+  }
+});
+
 
 var query = require('./views/config.json');
 
+var dbClient;
+// Connect to postgres.
 async.retry(
   {times: 1000, interval: 1000},
   function(callback) {
@@ -39,7 +65,9 @@ async.retry(
       return console.err("Giving up");
     }
     console.log("Connected to db");
-    getVotes(client);
+    dbClient = client;
+    // Perform only once on start-up.
+    getVotes();
   }
 );
 
@@ -61,7 +89,12 @@ function postBirthday() {
   }
 }
 
-function getVotes(client) {
+function getVotes() {
+  if(!dbClient) {
+    console.error("No dbClient yet")
+  }
+  var client = dbClient;
+  console.log("Getting votes")
   client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function(err, result) {
     if (err) {
       console.error("Error performing query: " + err);
@@ -70,10 +103,11 @@ function getVotes(client) {
         obj[row.vote] = row.count;
         return obj;
       }, {});
+      // console.log(data);
       io.sockets.emit("scores", JSON.stringify(data));
     }
 
-    setTimeout(function() {getVotes(client) }, 1000);
+    // setTimeout(function() {getVotes(client) }, 1000);
   });
 }
 

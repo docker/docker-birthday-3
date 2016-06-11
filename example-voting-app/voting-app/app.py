@@ -8,24 +8,24 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "One")
-option_b = os.getenv('OPTION_B', "Two")
+option_a = os.getenv('OPTION_A', "Python")
+option_b = os.getenv('OPTION_B', "JavaScript")
 
 hostname = socket.gethostname()
 
 redis = connect_to_redis("redis")
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 @app.route("/", methods=['POST','GET'])
 def hello():
     voter_id = request.cookies.get('voter_id')
     if not voter_id:
         voter_id = hex(random.getrandbits(64))[2:-1]
-
     vote = None
 
     if request.method == 'POST':
+        print("Redis rpush")
         vote = request.form['vote']
         data = json.dumps({'voter_id': voter_id, 'vote': vote})
         redis.rpush('votes', data)
