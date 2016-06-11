@@ -14,6 +14,10 @@ app.controller('statsCtrl', function($scope,$http){
     }
   };
 
+  $scope.optionA = "Option A";
+  $scope.optionB = "Option B";
+  $scope.aTotal = 0;
+  $scope.bTotal = 0;
   $scope.aPercent = 50;
   $scope.bPercent = 50;
   $scope.buttonPush = function() {
@@ -25,12 +29,23 @@ app.controller('statsCtrl', function($scope,$http){
     }, function errorCallback(response) {
       console.log(response);
     });
-  }
+  };
+
+  var updateOptions = function(){
+    socket.on('options', function (json) {
+      data = JSON.parse(json);
+      $scope.optionA = data.option_a;
+      $scope.optionB = data.option_b;
+    });
+  };
+  
   var updateScores = function(){
     socket.on('scores', function (json) {
        data = JSON.parse(json);
        var a = parseInt(data.a || 0);
        var b = parseInt(data.b || 0);
+       $scope.aTotal = a;
+       $scope.bTotal = b;
 
        animateStats(a, b);
 
@@ -46,6 +61,7 @@ app.controller('statsCtrl', function($scope,$http){
 
   var init = function(){
     document.body.style.opacity=1;
+    updateOptions();
     updateScores();
   };
   socket.on('message',function(data){

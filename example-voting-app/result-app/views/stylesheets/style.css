@@ -74,13 +74,15 @@ body{
   text-decoration:underline;
 }
 
+.total-stat {
+  color: white;
+}
 #choice .choice{
   position: relative;
   top: 50%;
   width: 49%;
   transform: translateY(-50%);
-  text-align: left;
-  padding: 30px;
+  text-align: center;
 }
 
 #choice .choice .label{

@@ -2,7 +2,7 @@
 <html ng-app="javavspython">
   <head>
     <meta charset="utf-8">
-    <title>One vs Two -- Result</title>
+    <title>{{ optionA }} vs {{ optionB }} -- Result</title>
     <base href="/index.html">
     <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
@@ -18,15 +18,16 @@
     </div>
     <div id="content-container">
       <div id="content-container-center">
+        <h1 class="total-stat">Total: {{ total }}</h1>
         <div id="choice">
           <div class="choice one">
-            <div class="label">One</div>
-            <div class="stat">{{aPercent | number:1}}%</div>
+            <div class="label">{{ optionA }}</div>
+            <div class="stat">{{aPercent | number:1}}% <br />({{ aTotal }}) </div>
           </div>
           <div class="divider"></div>
           <div class="choice two">
-            <div class="label">Two</div>
-            <div class="stat">{{bPercent | number:1}}%</div>
+            <div class="label">{{ optionB }}</div>
+            <div class="stat">{{bPercent | number:1}}% <br />({{ bTotal }})</div>
           </div>
         </div>
       </div>
