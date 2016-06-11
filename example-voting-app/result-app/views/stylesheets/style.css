@@ -10,8 +10,7 @@ html,body{
   font-family: 'Open Sans';
 }
 body{
-  opacity:0;
-  transition: all 1s linear;
+  background-color: #00cbca;
 }
 
 .divider{
@@ -56,14 +55,13 @@ body{
   font-weight: 600;
 }
 #choice{
-  transition: all 300ms linear;
   line-height:1.3em;
   background:#fff;
   box-shadow: 10px 0 0 #fff, -10px 0 0 #fff;
   vertical-align:middle;
   font-size:20px;
   font-weight: 600;
-  height: 200px;
+  height: 50px;
 }
 
 #choice a{
@@ -75,12 +73,6 @@ body{
 }
 
 #choice .choice{
-  position: relative;
-  top: 50%;
-  width: 49%;
-  transform: translateY(-50%);
-  text-align: left;
-  padding: 30px;
 }
 
 #choice .choice .label{
@@ -103,18 +95,26 @@ body{
   position:absolute;
 }
 #background-stats div{
-  transition: width 400ms ease-in-out;
   display:inline-block;
   margin-bottom:-4px;
   width:50%;
   height:100%;
+}
+
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 800px;
 }
 .choice > div {
   text-align:center
 }
 
 @media screen and (min-width: 480px) {
-    #choice {
-        font-size:40px;
-    }
+  #choice {
+    font-size: 40px;
+  }
 }

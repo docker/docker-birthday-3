@@ -8,9 +8,6 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "One")
-option_b = os.getenv('OPTION_B', "Two")
-
 hostname = socket.gethostname()
 
 redis = connect_to_redis("redis")
@@ -24,18 +21,17 @@ def hello():
         voter_id = hex(random.getrandbits(64))[2:-1]
 
     vote = None
-
+    username = ''
     if request.method == 'POST':
-        vote = request.form['vote']
-        data = json.dumps({'voter_id': voter_id, 'vote': vote})
+        username = request.form['username']
+        data = json.dumps({'voter_id': voter_id, 'username': username})
         redis.rpush('votes', data)
 
     resp = make_response(render_template(
         'index.html',
-        option_a=option_a,
-        option_b=option_b,
         hostname=hostname,
-        vote=vote,
+        username=username,
+        voter_id=voter_id
     ))
     resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0';
     resp.set_cookie('voter_id', voter_id)

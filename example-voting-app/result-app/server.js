@@ -60,20 +60,58 @@ function postBirthday() {
     console.log('You will need to stop this container and remove it, then run docker-compose up -d again.');
   }
 }
+function hashCode(str) { // java String#hashCode
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return hash;
+}
 
+function intToRGB(i){
+  var c = (i & 0x00FFFFFF)
+      .toString(16)
+      .toUpperCase();
+
+  return "#00000".substring(1, 6 - c.length) + c;
+}
+function color(h,s,v) {
+  var	h_i	= Math.floor(h*6),
+      f 	= h*6 - h_i,
+      p	= v * (1-s),
+      q	= v * (1-f*s),
+      t	= v * (1-(1-f)*s),
+      r	= 255,
+      g	= 255,
+      b	= 255;
+  switch(h_i) {
+    case 0:	r = v, g = t, b = p;	break;
+    case 1:	r = q, g = v, b = p;	break;
+    case 2:	r = p, g = v, b = t;	break;
+    case 3:	r = p, g = q, b = v;	break;
+    case 4: r = t, g = p, b = v;	break;
+    case 5: r = v, g = p, b = q;	break;
+  }
+  return [Math.floor(r*256),Math.floor(g*256),Math.floor(b*256)];
+};
 function getVotes(client) {
-  client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function(err, result) {
+  client.query('SELECT language as vote, SUM(counter) AS count FROM votes GROUP BY language', [], function(err, result) {
     if (err) {
       console.error("Error performing query: " + err);
     } else {
-      var data = result.rows.reduce(function(obj, row) {
-        obj[row.vote] = row.count;
-        return obj;
-      }, {});
+      var total = 0;
+      for (var key in result.rows) {
+        total += (+result.rows[key].count);
+      };
+      var data = [];
+      for (var key in result.rows) {
+        var name = result.rows[key].vote
+        data.push({'label':name,'color':intToRGB(hashCode(name+name+name)), 'value':parseFloat((result.rows[key].count*100)/total).toFixed(2)});
+      };
       io.sockets.emit("scores", JSON.stringify(data));
     }
 
-    setTimeout(function() {getVotes(client) }, 1000);
+    setTimeout(function() {getVotes(client) }, 1500);
   });
 }
 

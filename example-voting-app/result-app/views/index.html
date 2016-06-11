@@ -1,41 +1,28 @@
 <!DOCTYPE html>
-<html ng-app="javavspython">
-  <head>
+<html>
+<head>
+    <title>Hello Bubble Chart</title>
     <meta charset="utf-8">
-    <title>One vs Two -- Result</title>
-    <base href="/index.html">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
-    <meta name="keywords" content="docker-compose, docker, stack">
-    <meta name="author" content="Mano Marks">
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,200italic,600italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+    <script src="http://phuonghuynh.github.io/js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="index.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body ng-controller="statsCtrl" >
-     <div id="background-stats">
-       <div id="background-stats-1">
-       </div><!--
-      --><div id="background-stats-2">
-      </div>
-    </div>
+</head>
+<body>
+<div>
     <div id="content-container">
-      <div id="content-container-center">
-        <div id="choice">
-          <div class="choice one">
-            <div class="label">One</div>
-            <div class="stat">{{aPercent | number:1}}%</div>
-          </div>
-          <div class="divider"></div>
-          <div class="choice two">
-            <div class="label">Two</div>
-            <div class="stat">{{bPercent | number:1}}%</div>
-          </div>
+        <div id="content-container-center">
+            <div id="choice">
+                <div class="choice one">
+                    <div class="label">The awesome results</div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div id="result" ng-if="total > 100">
-      {{total}} votes
-    </div>
-    <script src="socket.io.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="app.js"></script>
-  </body>
+    <canvas id="myChart" width="1000" height="800"></canvas>
+</div>
+</body>
 </html>
