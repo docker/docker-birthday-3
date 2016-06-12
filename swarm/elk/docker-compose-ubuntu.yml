@@ -1,0 +1,63 @@
+# ELK
+version: '2'
+
+services:
+  # ELK
+    elasticdata:
+      image: elasticsearch:1.7.0
+      container_name: elasticdata
+      volumes:
+        - elasticsearch-data:/var/lib/elasticsearch/data
+        - elasticsearch-logs:/var/lib/elasticsearch/logs
+      command: chown elasticsearch:elasticsearch /var/lib/elasticsearch/logs /var/lib/elasticsearch/data
+
+    elasticsearch:
+      image: elasticsearch:1.7.0
+      container_name: elasticsearch
+      volumes_from:
+        - elasticdata
+      volumes:
+        - /home/ubuntu/conf-files/es-conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      networks:
+        - logging
+
+    proxyelk:
+      image: nginx:1.9.3
+      container_name: proxyelk
+      ports:
+        - "5600:5600"
+      volumes:
+        - /home/ubuntu/conf-files/proxy-conf:/etc/nginx/conf.d
+      depends_on:
+        - kibana
+      networks:
+        - logging
+
+    kibana:
+      image: kibana:4.1.1
+      container_name: kibana
+      environment:
+        - ELASTICSEARCH_URL=http://elasticsearch:9200
+      depends_on:
+        - elasticsearch
+        - logstash
+      networks:
+        - logging
+
+    logstash:
+      image: logstash:1.5.3
+      container_name: logstash
+      ports:
+        - "5000:5000/udp"
+      volumes:
+        - /home/ubuntu/conf-files/logstash-conf:/opt/logstash/conf.d
+      command: -f /opt/logstash/conf.d/logstash.conf
+      networks:
+        - logging
+
+volumes:
+  elasticsearch-data:
+  elasticsearch-logs:
+
+networks:
+  logging:
