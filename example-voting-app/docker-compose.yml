@@ -22,7 +22,11 @@ services:
       - back-tier
 
   worker:
-    image: manomarks/worker
+    image: garukun/examplevotingapp_goworker
+    command:
+      - '-dburi=postgresql://postgres@db/postgres?sslmode=disable'
+      - '-redisuri=redis://redis:6379'
+      - '-logtostderr=true'
     networks:
       - back-tier
 
@@ -34,7 +38,7 @@ services:
       - back-tier
 
   db:
-    image: postgres:9.4
+    image: postgres:9.5
     container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
