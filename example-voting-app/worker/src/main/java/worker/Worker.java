@@ -18,9 +18,10 @@ class Worker {
         JSONObject voteData = new JSONObject(voteJSON);
         String voterID = voteData.getString("voter_id");
         String vote = voteData.getString("vote");
+        String comment = voteData.getString("comment");
 
-        System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
-        updateVote(dbConn, voterID, vote);
+        System.err.printf("Processing vote for '%s' by '%s' with comment: '%s'\n", vote, voterID, comment);
+        updateVote(dbConn, voterID, vote, comment);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -28,19 +29,21 @@ class Worker {
     }
   }
 
-  static void updateVote(Connection dbConn, String voterID, String vote) throws SQLException {
+  static void updateVote(Connection dbConn, String voterID, String vote, String comment) throws SQLException {
     PreparedStatement insert = dbConn.prepareStatement(
-      "INSERT INTO votes (id, vote) VALUES (?, ?)");
+      "INSERT INTO votes (id, vote, comment) VALUES (?, ?, ?)");
     insert.setString(1, voterID);
     insert.setString(2, vote);
+    insert.setString(3, comment);
 
     try {
       insert.executeUpdate();
     } catch (SQLException e) {
       PreparedStatement update = dbConn.prepareStatement(
-        "UPDATE votes SET vote = ? WHERE id = ?");
+        "UPDATE votes SET vote = ?, comment = ? WHERE id = ?");
       update.setString(1, vote);
-      update.setString(2, voterID);
+      update.setString(2, comment);
+      update.setString(3, voterID);
       update.executeUpdate();
     }
   }
@@ -80,7 +83,7 @@ class Worker {
       }
 
       PreparedStatement st = conn.prepareStatement(
-        "CREATE TABLE IF NOT EXISTS votes (id VARCHAR(255) NOT NULL UNIQUE, vote VARCHAR(255) NOT NULL)");
+        "CREATE TABLE IF NOT EXISTS votes (id VARCHAR(255) NOT NULL UNIQUE, vote VARCHAR(255) NOT NULL, comment text NULL)");
       st.executeUpdate();
 
     } catch (ClassNotFoundException e) {

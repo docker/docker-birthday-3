@@ -67,6 +67,7 @@ At the training, you will need to bring your own computer. Before you go to a bi
    docker pull manomarks/worker
    docker pull redis:alpine
    docker pull postgres:9.4
+   docker pull soleo/alpine-scala
    ```
 And now you're ready. See you at the birthday party!<a name="challenge"></a>
 

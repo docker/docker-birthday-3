@@ -15,6 +15,7 @@
       <div id="content-container-center">
         <h3>{{option_a}} vs {{option_b}}!</h3>
         <form id="choice" name='form' method="POST" action="/">
+          <textarea class="form-control" rows="3" placeholder="Write why you choose your option. Write minimum 10 charaters and submit your vote."name="comment">{% if comment %}{{comment}}{% endif %}</textarea>
           <button id="a" type="submit" name="vote" class="a" value="a">{{option_a}}</button>
           <button id="b" type="submit" name="vote" class="b" value="b">{{option_b}}</button>
         </form>
@@ -43,6 +44,21 @@
         $(".b").html('{{option_b}} <i class="fa fa-check-circle"></i>');
         $(".a").css('opacity','0.5');
       }
+
+      var comment = "{{comment}}";  
+      
+      if (comment.length > 10) {
+        $.post('/api/sentiment',{comment: comment},function(result){
+          if(result.polarity < 0.0){
+            console.log('less than 0');
+          } else if( result.polarity >= 0.0 && result.polarity <= 0.5){
+            console.log('between 0 and 0.5');  
+          }else{
+            console.log('Greater than 0.5');   
+          }
+        });
+      }
+      
     </script>
     {% endif %}
   </body>
