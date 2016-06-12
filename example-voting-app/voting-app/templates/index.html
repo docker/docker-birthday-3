@@ -14,7 +14,8 @@
     <div id="content-container">
       <div id="content-container-center">
         <h3>{{option_a}} vs {{option_b}}!</h3>
-        <form id="choice" name='form' method="POST" action="/">
+        <form id="choice" name='form' method="POST" action="/" onsubmit="addLocation()">
+          <input id="location" type=hidden name=location value="">
           <button id="a" type="submit" name="vote" class="a" value="a">{{option_a}}</button>
           <button id="b" type="submit" name="vote" class="b" value="b">{{option_b}}</button>
         </form>
@@ -28,6 +29,25 @@
     </div>
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          window.current_location = pos;
+          $("#location").val(JSON.stringify(pos));
+        });
+      }
+      else {
+        window.current_location = {lat:0.0, lng:0.0};
+      }
+
+      function addLocation() {
+        $("#location").val(JSON.stringify(window.current_location));
+      }
+    </script>
 
     {% if vote %}
     <script>

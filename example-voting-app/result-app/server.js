@@ -24,6 +24,7 @@ io.sockets.on('connection', function (socket) {
 
 var query = require('./views/config.json');
 
+var db_client = null;
 async.retry(
   {times: 1000, interval: 1000},
   function(callback) {
@@ -40,6 +41,7 @@ async.retry(
     }
     console.log("Connected to db");
     getVotes(client);
+    db_client = client;
   }
 );
 
@@ -72,8 +74,18 @@ function getVotes(client) {
       }, {});
       io.sockets.emit("scores", JSON.stringify(data));
     }
-
     setTimeout(function() {getVotes(client) }, 1000);
+  });
+}
+
+function getVotesLocations(offset, callback) {
+  db_client.query('SELECT vote, loc FROM votes LIMIT 50 OFFSET '+ offset, [], function(err, result) {
+    if (err) {
+      console.error("Error performing query: " + err);
+      callback(err, []);
+    } else {
+      callback(null, result.rows);
+    }
   });
 }
 
@@ -93,6 +105,16 @@ app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname + '/views/index.html'));
 });
 
+app.get('/vote_locs', function (req, res) {
+  var offset = req.query.from;
+
+  getVotesLocations(offset, function(err, data) {
+    res.type('application/json');
+    res.status(200);
+    res.send(JSON.stringify(data));
+  });
+});
+
 app.get('/postconfig', function(req,res) {
 
   postBirthday();
@@ -104,7 +126,6 @@ app.get('/getconfig', function(req,res){
   res.type('application/json');
   res.status(200);
   res.send(JSON.stringify(query));
-
 });
 
 server.listen(port, function () {

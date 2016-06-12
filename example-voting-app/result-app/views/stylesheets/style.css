@@ -15,7 +15,7 @@ body{
 }
 
 .divider{
-  height: 150px;
+  height: 80%;
   width:2px;
   background-color: #C0C9CE;
   position: relative;
@@ -37,9 +37,9 @@ body{
   position:relative;
   margin:0 auto;
   display:table;
-  padding:10px;
+  padding:2px;
   max-width:940px;
-  height:100%;
+  height:25%;
 }
 #content-container-center{
   display:table-cell;
@@ -63,7 +63,7 @@ body{
   vertical-align:middle;
   font-size:20px;
   font-weight: 600;
-  height: 200px;
+  height: 100%;
 }
 
 #choice a{
@@ -80,7 +80,7 @@ body{
   width: 49%;
   transform: translateY(-50%);
   text-align: left;
-  padding: 30px;
+  padding: 3%;
 }
 
 #choice .choice .label{
@@ -98,7 +98,7 @@ body{
 }
 #background-stats{
   z-index:1;
-  height:100%;
+  height:25%;
   width:100%;
   position:absolute;
 }
@@ -113,8 +113,16 @@ body{
   text-align:center
 }
 
-@media screen and (min-width: 480px) {
+#map {
+  height: 70%;
+  margin: auto;
+  width: 60%;
+  //border: 3px solid #73AD21;
+  padding: 10px;
+}
+
+@media screen and (min-width: 600px) {
     #choice {
-        font-size:40px;
+        font-size:30px;
     }
 }

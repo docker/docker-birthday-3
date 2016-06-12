@@ -6,6 +6,16 @@ import java.sql.*;
 import org.json.JSONObject;
 
 class Worker {
+
+  static class LatLong {
+    public float _lat;
+    public float _long;
+
+    public String toString() {
+      return "lat: " + _lat + " lng: " + _long;
+    }
+  }
+
   public static void main(String[] args) {
     try {
       Jedis redis = connectToRedis("redis");
@@ -18,9 +28,14 @@ class Worker {
         JSONObject voteData = new JSONObject(voteJSON);
         String voterID = voteData.getString("voter_id");
         String vote = voteData.getString("vote");
+        
+        JSONObject locData = voteData.getJSONObject("location");
+        LatLong location = new LatLong();
+        location._lat = (float)locData.getDouble("lat");
+        location._long = (float)locData.getDouble("lng");
 
-        System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
-        updateVote(dbConn, voterID, vote);
+        System.err.printf("Processing vote for '%s' by '%s' from '%s'\n", vote, voterID, location.toString());
+        updateVote(dbConn, voterID, vote, location);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -28,11 +43,13 @@ class Worker {
     }
   }
 
-  static void updateVote(Connection dbConn, String voterID, String vote) throws SQLException {
+  static void updateVote(Connection dbConn, String voterID, String vote, LatLong location) throws SQLException {
     PreparedStatement insert = dbConn.prepareStatement(
-      "INSERT INTO votes (id, vote) VALUES (?, ?)");
+      "INSERT INTO votes (id, vote, loc) VALUES (?, ?, point(?, ?))");
     insert.setString(1, voterID);
     insert.setString(2, vote);
+    insert.setFloat(3, location._lat);
+    insert.setFloat(4, location._long);
 
     try {
       insert.executeUpdate();
@@ -80,9 +97,8 @@ class Worker {
       }
 
       PreparedStatement st = conn.prepareStatement(
-        "CREATE TABLE IF NOT EXISTS votes (id VARCHAR(255) NOT NULL UNIQUE, vote VARCHAR(255) NOT NULL)");
+        "CREATE TABLE IF NOT EXISTS votes (id VARCHAR(255) NOT NULL UNIQUE, vote VARCHAR(255) NOT NULL, loc POINT NOT NULL)");
       st.executeUpdate();
-
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
       System.exit(1);

@@ -21,8 +21,13 @@ services:
       - front-tier
       - back-tier
 
+  testing-app:
+    build: ./testing-app/.
+    networks:
+      - front-tier
+
   worker:
-    image: manomarks/worker
+    build: ./worker/.
     networks:
       - back-tier
 
@@ -37,12 +42,12 @@ services:
     image: postgres:9.4
     container_name: db
     volumes:
-      - "db-data:/var/lib/postgresql/data"
+      - "db-data3:/var/lib/postgresql/data"
     networks:
       - back-tier
 
 volumes:
-  db-data:
+  db-data3:
 
 networks:
   front-tier:

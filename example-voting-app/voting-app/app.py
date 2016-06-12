@@ -8,8 +8,8 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "One")
-option_b = os.getenv('OPTION_B', "Two")
+option_a = os.getenv('OPTION_A', "Python")
+option_b = os.getenv('OPTION_B', "Javascript")
 
 hostname = socket.gethostname()
 
@@ -27,7 +27,8 @@ def hello():
 
     if request.method == 'POST':
         vote = request.form['vote']
-        data = json.dumps({'voter_id': voter_id, 'vote': vote})
+        location = json.loads(request.form['location'])
+        data = json.dumps({'voter_id': voter_id, 'vote': vote, 'location': location})
         redis.rpush('votes', data)
 
     resp = make_response(render_template(
