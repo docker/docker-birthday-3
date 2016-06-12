@@ -1,7 +1,7 @@
 {
-  "name":"Gordon",
-  "twitter":"@docker",
-  "location":"San Francisco, CA, USA",
-  "repo":["example/votingapp_voting-app","example/votingapp_result-app"],
-  "vote":"Cat"
+  "name":"Psycho Punch",
+  "twitter":"@psycho_punch",
+  "location":"Fairview, Quezon City, Philippines",
+  "repo":["rdgoite/votingapp_voting-app","rdgoite/votingapp_result-app"],
+  "vote":"Python"
 }
