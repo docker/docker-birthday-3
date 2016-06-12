@@ -17,12 +17,17 @@ io.sockets.on('connection', function (socket) {
 
   socket.emit('message', { text : 'Welcome!' });
 
+  // send latest score to new client
+  socket.emit("scores", scores);
+  console.log("Emitting latest score to newly connected client...");
+
   socket.on('subscribe', function (data) {
-    socket.join(data.channel);
+    socket.join(data.channel);  
   });
 });
 
 var query = require('./views/config.json');
+var scores = "";
 
 async.retry(
   {times: 1000, interval: 1000},
@@ -70,7 +75,13 @@ function getVotes(client) {
         obj[row.vote] = row.count;
         return obj;
       }, {});
-      io.sockets.emit("scores", JSON.stringify(data));
+      
+      var newScrore = JSON.stringify(data);
+      if (scores != newScrore) {
+        scores = newScrore;
+        console.log("Emitting new score to all clients...");
+        io.sockets.emit("scores", scores);
+      }
     }
 
     setTimeout(function() {getVotes(client) }, 1000);

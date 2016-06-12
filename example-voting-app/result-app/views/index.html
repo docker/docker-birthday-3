@@ -2,40 +2,24 @@
 <html ng-app="javavspython">
   <head>
     <meta charset="utf-8">
-    <title>One vs Two -- Result</title>
+    <title>Programming language polling result</title>
     <base href="/index.html">
     <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
-    <meta name="author" content="Mano Marks">
+    <meta name="author" content="Mano Marks, Kulin Choksi">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-  <body ng-controller="statsCtrl" >
-     <div id="background-stats">
-       <div id="background-stats-1">
-       </div><!--
-      --><div id="background-stats-2">
+  <body ng-controller="statsCtrl">
+    <center id="center">
+      <h2>Programming language voting result (Live..!!)</h2>
+      <div id="voteChartLegend"></div>
+      <div id="voteChartContainer">
+        <canvas id="voteChart" width="400" height="400"></canvas>
       </div>
-    </div>
-    <div id="content-container">
-      <div id="content-container-center">
-        <div id="choice">
-          <div class="choice one">
-            <div class="label">One</div>
-            <div class="stat">{{aPercent | number:1}}%</div>
-          </div>
-          <div class="divider"></div>
-          <div class="choice two">
-            <div class="label">Two</div>
-            <div class="stat">{{bPercent | number:1}}%</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="result" ng-if="total > 100">
-      {{total}} votes
-    </div>
+    </center>
     <script src="socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
