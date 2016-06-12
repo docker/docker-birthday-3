@@ -8,8 +8,16 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "One")
-option_b = os.getenv('OPTION_B', "Two")
+option_a = os.getenv('OPTION_A', "C++")
+option_b = os.getenv('OPTION_B', "Closure")
+option_c = os.getenv('OPTION_C', "Go")
+option_d = os.getenv('OPTION_D', "Java")
+option_e = os.getenv('OPTION_E', "Javascript")
+option_f = os.getenv('OPTION_F', "PHP")
+option_g = os.getenv('OPTION_G', "Python")
+option_h = os.getenv('OPTION_H', "Ruby")
+option_i = os.getenv('OPTION_I', "Rust")
+option_j = os.getenv('OPTION_J', "Scala")
 
 hostname = socket.gethostname()
 
@@ -34,6 +42,14 @@ def hello():
         'index.html',
         option_a=option_a,
         option_b=option_b,
+        option_c=option_c,
+        option_d=option_d,
+        option_e=option_e,
+        option_f=option_f,
+        option_g=option_g,
+        option_h=option_h,
+        option_i=option_i,
+        option_j=option_j,
         hostname=hostname,
         vote=vote,
     ))

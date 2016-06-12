@@ -2,33 +2,79 @@
 <html ng-app="javavspython">
   <head>
     <meta charset="utf-8">
-    <title>One vs Two -- Result</title>
+    <title>You Voted!</title>
     <base href="/index.html">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
     <meta name="author" content="Mano Marks">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
   </head>
-  <body ng-controller="statsCtrl" >
-     <div id="background-stats">
-       <div id="background-stats-1">
-       </div><!--
-      --><div id="background-stats-2">
-      </div>
+  <body ng-controller="statsCtrl">
+    <div id="background-stats">
+      <div id="background-stats-1"></div>
+      <div id="background-stats-2"></div>
+      <div id="background-stats-3"></div>
+      <div id="background-stats-4"></div>
+      <div id="background-stats-5"></div>
+      <div id="background-stats-6"></div>
+      <div id="background-stats-7"></div>
+      <div id="background-stats-8"></div>
+      <div id="background-stats-9"></div>
+      <div id="background-stats-10"></div>
     </div>
     <div id="content-container">
       <div id="content-container-center">
+        <img src="docker.png" alt="docker-logo" class="docker-icon"/>
+        <h3>You Voted For..</h3>
+        <p class="submit-cta">To complete your submission: <a href="/birthday.html">GO HERE</a></p>
         <div id="choice">
-          <div class="choice one">
-            <div class="label">One</div>
+          <div class="choice one c1">
+            <div class="label">C++</div>
             <div class="stat">{{aPercent | number:1}}%</div>
           </div>
           <div class="divider"></div>
-          <div class="choice two">
-            <div class="label">Two</div>
+          <div class="choice two c2">
+            <div class="label">Closure</div>
             <div class="stat">{{bPercent | number:1}}%</div>
           </div>
+          <div class="choice three c1">
+            <div class="label">Go</div>
+            <div class="stat">{{cPercent | number:1}}%</div>
+          </div>
+          <div class="divider"></div>
+          <div class="choice four c2">
+            <div class="label">Java</div>
+            <div class="stat">{{dPercent | number:1}}%</div>
+          </div>
+          <div class="choice five c1">
+            <div class="label">Javascript</div>
+            <div class="stat">{{ePercent | number:1}}%</div>
+          </div>
+          <div class="divider"></div>
+          <div class="choice six c2">
+            <div class="label">PHP</div>
+            <div class="stat">{{fPercent | number:1}}%</div>
+          </div>
+          <div class="choice seven c1">
+            <div class="label">Python</div>
+            <div class="stat">{{gPercent | number:1}}%</div>
+          </div>
+          <div class="divider"></div>
+          <div class="choice eight c2">
+            <div class="label">Ruby</div>
+            <div class="stat">{{hPercent | number:1}}%</div>
+          </div>
+          <div class="choice nine c1">
+            <div class="label">Rust</div>
+            <div class="stat">{{iPercent | number:1}}%</div>
+          </div>
+          <div class="divider"></div>
+          <div class="choice ten c2">
+            <div class="label">Scala</div>
+            <div class="stat">{{jPercent | number:1}}%</div>
+          </div>
         </div>
+        <div class="contribute-cta">Contribute on <a href="https://github.com/docker/docker-birthday-3/tree/master/example-voting-app">Github</a></div> 
       </div>
     </div>
     <div id="result" ng-if="total > 100">

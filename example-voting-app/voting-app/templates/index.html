@@ -2,27 +2,36 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{option_a}} vs {{option_b}}!</title>
+    <title>Get Your Vote In!</title>
     <base href="/index.html">
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="docker-compose, docker, stack">
     <meta name="author" content="Docker">
-    <link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/style.css') }}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
   <body>
     <div id="content-container">
       <div id="content-container-center">
-        <h3>{{option_a}} vs {{option_b}}!</h3>
-        <form id="choice" name='form' method="POST" action="/">
-          <button id="a" type="submit" name="vote" class="a" value="a">{{option_a}}</button>
-          <button id="b" type="submit" name="vote" class="b" value="b">{{option_b}}</button>
+        <img src="{{ url_for('static',filename='docker.png') }}" alt="docker" class="docker-icon"/>
+        <h3>Get Your Vote In!</h3>
+        <form id="choice" name="form" method="POST" action="/">
+          <button id="a" type="submit" name="vote" class="a c1" value="a">{{option_a}}</button>
+          <button id="b" type="submit" name="vote" class="b c2" value="b">{{option_b}}</button>
+          <button id="c" type="submit" name="vote" class="c c1" value="c">{{option_c}}</button>
+          <button id="d" type="submit" name="vote" class="d c2" value="d">{{option_d}}</button>
+          <button id="e" type="submit" name="vote" class="e c1" value="e">{{option_e}}</button>
+          <button id="f" type="submit" name="vote" class="f c2" value="f">{{option_f}}</button>
+          <button id="g" type="submit" name="vote" class="g c1" value="g">{{option_g}}</button>
+          <button id="h" type="submit" name="vote" class="h c2" value="h">{{option_h}}</button>
+          <button id="i" type="submit" name="vote" class="i c1" value="i">{{option_i}}</button>
+          <button id="j" type="submit" name="vote" class="j c2" value="j">{{option_j}}</button>
         </form>
-        <div id="tip">
-          (Tip: you can change your vote)
-        </div>
+        <div id="tip">(Tip: You can change your vote)</div>
         <div id="hostname">
-          Vote processed by {{hostname}}
+          <span>Contribute on <a href="https://github.com/docker/docker-birthday-3/tree/master/example-voting-app">Github</a></span> 
+          <img src="{{ url_for('static',filename='docker.png') }}" alt="docker" class="docker-icon"/>
+          <span>Vote processed by {{hostname}}</span>
         </div>
       </div>
     </div>
@@ -32,16 +41,135 @@
     {% if vote %}
     <script>
       var vote = "{{vote}}";
-
       if(vote == "a"){
-        $(".a").prop('disabled', true);
-        $(".a").html('{{option_a}} <i class="fa fa-check-circle"></i>');
-        $(".b").css('opacity','0.5');
-      }
+        $(".a").prop("disabled", true);
+        $(".a").html("{{option_a}} <i class='fa fa-check-circle'></i>");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      } 
       if(vote == "b"){
-        $(".b").prop('disabled', true);
-        $(".b").html('{{option_b}} <i class="fa fa-check-circle"></i>');
-        $(".a").css('opacity','0.5');
+        $(".b").prop("disabled", true);
+        $(".b").html("{{option_b}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "c"){
+        $(".c").prop("disabled", true);
+        $(".c").html("{{option_c}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "d"){
+        $(".d").prop("disabled", true);
+        $(".d").html("{{option_d}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "e"){
+        $(".e").prop("disabled", true);
+        $(".e").html("{{option_e}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "f"){
+        $(".f").prop("disabled", true);
+        $(".f").html("{{option_f}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "g"){
+        $(".g").prop("disabled", true);
+        $(".g").html("{{option_g}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "h"){
+        $(".h").prop("disabled", true);
+        $(".h").html("{{option_h}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "i"){
+        $(".i").prop("disabled", true);
+        $(".i").html("{{option_i}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".j").css("opacity","0.5");
+      }
+      if(vote == "j"){
+        $(".j").prop("disabled", true);
+        $(".j").html("{{option_j}} <i class='fa fa-check-circle'></i>");
+        $(".a").css("opacity","0.5");
+        $(".b").css("opacity","0.5");
+        $(".c").css("opacity","0.5");
+        $(".d").css("opacity","0.5");
+        $(".e").css("opacity","0.5");
+        $(".f").css("opacity","0.5");
+        $(".g").css("opacity","0.5");
+        $(".h").css("opacity","0.5");
+        $(".i").css("opacity","0.5");
       }
     </script>
     {% endif %}

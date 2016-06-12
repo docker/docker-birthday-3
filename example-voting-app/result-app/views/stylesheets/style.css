@@ -1,52 +1,71 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,600);
 
-*{
-  box-sizing:border-box;
-}
-html,body{
-  margin:0;
-  padding:0;
-  height:100%;
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #F7F8F9;
   font-family: 'Open Sans';
+  box-sizing: border-box;
 }
-body{
-  opacity:0;
+
+body {
+  opacity: 0;
   transition: all 1s linear;
 }
 
-.divider{
-  height: 150px;
-  width:2px;
-  background-color: #C0C9CE;
-  position: relative;
-  top: 50%;
-  float: left;
+a {
+  text-decoration: none;
+  color: #254356;
+}
+
+#content-container-center h3 {
+  color: #254356;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.docker-icon {
+  width: 250px;
+}
+
+.submit-cta {
+  color: #FF992E;
+  font-weight: 600;
+}
+
+.submit-cta a {
+  color: #FF992E;
+  opacity: 0.95;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.submit-cta a:hover {
+  color: #254356;
+  text-decoration: none;
+}
+
+.divider {
   transform: translateY(-50%);
+  position: relative;
+  top: 50px;
+  height: 70px;
+  width: 2px;
+  background-color: #C0C9CE;
+  float: left;
 }
 
-#background-stats-1{
-  background-color: #2196f3;
+#content-container {
+  z-index: 2;
+  position: relative;
+  margin: 0 auto;
+  padding: 10px;
+  height: 100vh;
+  text-align: center;
 }
 
-#background-stats-2{
-  background-color: #00cbca;
-}
-
-#content-container{
-  z-index:2;
-  position:relative;
-  margin:0 auto;
-  display:table;
-  padding:10px;
-  max-width:940px;
-  height:100%;
-}
-#content-container-center{
-  display:table-cell;
-  text-align:center;
-  vertical-align:middle;
-}
-#result{
+#result {
   position: absolute;
   bottom: 40px;
   right: 20px;
@@ -55,66 +74,85 @@ body{
   font-size: 45px;
   font-weight: 600;
 }
-#choice{
+
+#choice {
   transition: all 300ms linear;
-  line-height:1.3em;
-  background:#fff;
-  box-shadow: 10px 0 0 #fff, -10px 0 0 #fff;
-  vertical-align:middle;
-  font-size:20px;
+  line-height: 1.3em;
+  font-size: 20px;
   font-weight: 600;
-  height: 200px;
+  height: 100vh;
+  max-width: 640px;
+  width: 95%;
+  margin: 0 auto;
 }
 
-#choice a{
-  text-decoration:none;
-}
-#choice a:hover, #choice a:focus{
-  outline:0;
-  text-decoration:underline;
+#choice a {
+  text-decoration: none;
 }
 
-#choice .choice{
-  position: relative;
-  top: 50%;
-  width: 49%;
+#choice a:hover, #choice a:focus {
+  outline: 0;
+  text-decoration: underline;
+}
+
+#choice .choice {
   transform: translateY(-50%);
+  position: relative;
+  top: 50px;
+  width: 42%;
   text-align: left;
-  padding: 30px;
+  padding: 30px 10px;
 }
 
-#choice .choice .label{
+#choice .choice .label {
   text-transform: uppercase;
 }
 
-#choice .choice.two{
+#choice .choice.c1 {
+  color: #2196f3;
+  float: left;
+}
+
+#choice .choice.c2 {
   color: #00cbca;
   float: right;
 }
 
-#choice .choice.one{
-  color: #2196f3;
-  float: left;
-}
-#background-stats{
-  z-index:1;
-  height:100%;
-  width:100%;
-  position:absolute;
-}
-#background-stats div{
-  transition: width 400ms ease-in-out;
-  display:inline-block;
-  margin-bottom:-4px;
-  width:50%;
-  height:100%;
-}
 .choice > div {
-  text-align:center
+  text-align: center
+}
+
+.contribute-cta {
+  color: #8f9ea8;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 @media screen and (min-width: 480px) {
-    #choice {
-        font-size:40px;
-    }
+  #choice {
+    font-size: 30px;
+  }
+  #choice .choice {
+    width: 45%;
+    top: 80px;
+  }
+  .divider {
+    height: 90px;
+    top: 80px;
+  }
+}
+
+/* Birthday.html */
+.submit-btn {
+  width: 120px;
+  height: 120px;
+  font-size: 13px;
+  color: #fff;
+  background-color: #254356;
+  border-radius: 100%;
+  border: solid 2px #00cbca;
+  margin-bottom: 25px;
+}
+.submit-btn:hover {
+  opacity: 0.9;
 }
