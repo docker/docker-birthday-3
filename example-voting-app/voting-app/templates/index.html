@@ -13,13 +13,17 @@
   <body>
     <div id="content-container">
       <div id="content-container-center">
-        <h3>{{option_a}} vs {{option_b}}!</h3>
+        <h2>{{option_a}} vs {{option_b}}!</h2>
         <form id="choice" name='form' method="POST" action="/">
-          <button id="a" type="submit" name="vote" class="a" value="a">{{option_a}}</button>
-          <button id="b" type="submit" name="vote" class="b" value="b">{{option_b}}</button>
+          <button id="a" type="submit" name="vote" class="a" value="a"><img src="http://images.md.prom.st/7995410_w100_h100_cursuripitin.jpg" alt="Vote for Python"></button>
+          <br>
+          <br>
+          <button id="b" type="submit" name="vote" class="b" value="b"><img src="http://bayanbox.ir/id/8441640851094831843?thumb" alt="Vote for JavaScript"></button>
         </form>
+        <br>
         <div id="tip">
-          (Tip: you can change your vote)
+          <b>(Tip: you can change your vote)</b><br>
+          <b>Goto port 5001 to view results</b>
         </div>
         <div id="hostname">
           Vote processed by {{hostname}}
@@ -41,7 +45,7 @@
       if(vote == "b"){
         $(".b").prop('disabled', true);
         $(".b").html('{{option_b}} <i class="fa fa-check-circle"></i>');
-        $(".a").css('opacity','0.5');
+        $(".a").css('opacity','0.2');
       }
     </script>
     {% endif %}
