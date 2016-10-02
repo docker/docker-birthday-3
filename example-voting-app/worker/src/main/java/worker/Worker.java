@@ -1,101 +1,63 @@
 package worker;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.exceptions.JedisConnectionException;
-import java.sql.*;
+import java.sql.SQLException;
+
 import org.json.JSONObject;
 
-class Worker {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.StringRedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+
+@SpringBootApplication
+@EnableScheduling
+public class Worker {
+
+  private JdbcTemplate jdbcTemplate;
+
+  private RedisTemplate<String, String> redisTemplate;
+
+  public Worker(JdbcTemplate jdbcTemplate, RedisTemplate<String, String> redisTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+    this.redisTemplate = redisTemplate;
+  }
+
   public static void main(String[] args) {
+    SpringApplication.run(Worker.class, args);
+  }
+
+  @Scheduled(cron = "* * * * * *")
+  public void job() {
     try {
-      Jedis redis = connectToRedis("redis");
-      Connection dbConn = connectToDB("db");
 
       System.err.println("Watching vote queue");
+      String voteJSON = this.redisTemplate.execute((RedisCallback<String>)(connection) -> {
+          StringRedisConnection stringRedisConn = (StringRedisConnection)connection;
+          return stringRedisConn.bLPop(0, "votes").get(1);
+        });
+      JSONObject voteData = new JSONObject(voteJSON);
+      String voterID = voteData.getString("voter_id");
+      String vote = voteData.getString("vote");
 
-      while (true) {
-        String voteJSON = redis.blpop(0, "votes").get(1);
-        JSONObject voteData = new JSONObject(voteJSON);
-        String voterID = voteData.getString("voter_id");
-        String vote = voteData.getString("vote");
-
-        System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
-        updateVote(dbConn, voterID, vote);
-      }
+      System.err.printf("Processing vote for '%s' by '%s'\n", vote, voterID);
+      updateVote(voterID, vote);
     } catch (SQLException e) {
       e.printStackTrace();
       System.exit(1);
     }
   }
 
-  static void updateVote(Connection dbConn, String voterID, String vote) throws SQLException {
-    PreparedStatement insert = dbConn.prepareStatement(
-      "INSERT INTO votes (id, vote) VALUES (?, ?)");
-    insert.setString(1, voterID);
-    insert.setString(2, vote);
-
+  private void updateVote(String voterID, String vote) throws SQLException {
     try {
-      insert.executeUpdate();
-    } catch (SQLException e) {
-      PreparedStatement update = dbConn.prepareStatement(
-        "UPDATE votes SET vote = ? WHERE id = ?");
-      update.setString(1, vote);
-      update.setString(2, voterID);
-      update.executeUpdate();
+      this.jdbcTemplate.update("INSERT INTO votes (id, vote) VALUES (?, ?)", voterID, vote);
+    } catch (DataAccessException e) {
+      this.jdbcTemplate.update("UPDATE votes SET vote = ? WHERE id = ?", vote, voterID);
     }
   }
 
-  static Jedis connectToRedis(String host) {
-    Jedis conn = new Jedis(host);
-
-    while (true) {
-      try {
-        conn.keys("*");
-        break;
-      } catch (JedisConnectionException e) {
-        System.err.println("Failed to connect to redis - retrying");
-        sleep(1000);
-      }
-    }
-
-    System.err.println("Connected to redis");
-    return conn;
-  }
-
-  static Connection connectToDB(String host) throws SQLException {
-    Connection conn = null;
-
-    try {
-
-      Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://" + host + "/postgres";
-
-      while (conn == null) {
-        try {
-          conn = DriverManager.getConnection(url, "postgres", "");
-        } catch (SQLException e) {
-          System.err.println("Failed to connect to db - retrying");
-          sleep(1000);
-        }
-      }
-
-      PreparedStatement st = conn.prepareStatement(
-        "CREATE TABLE IF NOT EXISTS votes (id VARCHAR(255) NOT NULL UNIQUE, vote VARCHAR(255) NOT NULL)");
-      st.executeUpdate();
-
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-      System.exit(1);
-    }
-
-    return conn;
-  }
-
-  static void sleep(long duration) {
-    try {
-      Thread.sleep(duration);
-    } catch (InterruptedException e) {
-      System.exit(1);
-    }
-  }
 }

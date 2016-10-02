@@ -22,7 +22,7 @@ services:
       - back-tier
 
   worker:
-    image: manomarks/worker
+    image: eddumelendez/worker
     networks:
       - back-tier
 
