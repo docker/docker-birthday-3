@@ -1,49 +1,76 @@
 version: "2"
 
 services:
-  voting-app:
-    build: ./voting-app/.
-    volumes:
-     - ./voting-app:/app
+  interlock:
+    image: ehazlett/interlock:1.0.1
+    command: -D run
+    tty: true
     ports:
-      - "5000:80"
-    networks:
-      - front-tier
-      - back-tier
+        - 8080
+    environment: 
+        INTERLOCK_CONFIG: |
+            ListenAddr = ":8080"
+            DockerURL = "tcp://54.183.181.250:3375"
+            
+            [[Extensions]]
+            Name = "nginx"
+            ConfigPath = "/etc/conf/nginx.conf"
+            PidPath = "/etc/conf/nginx.pid"
+            MaxConn = 1024
+            Port = 80
+    volumes:
+        - nginx:/etc/conf
+        - /var/tmp/config.toml:/bin/config.toml
+
+  nginx:
+    image: nginx:latest
+    entrypoint: nginx
+    command: -g "daemon off;" -c /etc/conf/nginx.conf
+    ports:
+        - 80:80
+    environment:
+        - "constraint:node==ip-172-31-4-241"
+    labels:
+        - "interlock.ext.name=nginx"
+    links:
+        - interlock:interlock
+    volumes:
+        - nginx:/etc/conf
+   
+  voting-app:
+    build: ./voting-app/. 
+    ports:
+      - "80"
+    labels:
+      - "interlock.hostname=votingApp"
+      - "interlock.domain=git2swarm.com"
+
 
   result-app:
     build: ./result-app/.
-    volumes:
-      - ./result-app:/app
     ports:
-      - "5001:80"
-    networks:
-      - front-tier
-      - back-tier
-
+      - "80"
+    labels:
+      - "interlock.hostname=results"
+      - "interlock.domain=git2swarm.com"
+    environment:
+        - "constraint:node==ip-172-31-4-241"
   worker:
     image: manomarks/worker
-    networks:
-      - back-tier
-
+   
   redis:
     image: redis:alpine
     container_name: redis
     ports: ["6379"]
-    networks:
-      - back-tier
-
+   
   db:
     image: postgres:9.4
     container_name: db
     volumes:
       - "db-data:/var/lib/postgresql/data"
-    networks:
-      - back-tier
-
+   
 volumes:
   db-data:
-
-networks:
-  front-tier:
-  back-tier:
+  nginx:
+    driver: local
+    
